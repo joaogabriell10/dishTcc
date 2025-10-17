@@ -1,0 +1,64 @@
+@import url('../paises/PaisesAdminLista.css');
+
+.nome-cell {
+  min-width: 180px;
+}
+
+.usuario-nome {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.email-cell {
+  min-width: 200px;
+  font-family: monospace;
+  color: #666;
+}
+
+.cpf-cell, .telefone-cell {
+  min-width: 120px;
+}
+
+.cpf-formatado, .telefone-formatado {
+  font-family: monospace;
+  color: #555;
+  font-weight: 500;
+}
+
+.nivel-cell {
+  min-width: 130px;
+}
+
+.nivel-badge {
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.nivel-admin {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.nivel-user {
+  background: #e8f5e8;
+  color: #2e7d32;
+}
+
+.nivel-moderator {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+@media (max-width: 768px) {
+  .email-cell {
+    min-width: 150px;
+    font-size: 0.85rem;
+  }
+  
+  .cpf-formatado, .telefone-formatado {
+    font-size: 0.85rem;
+  }
+}

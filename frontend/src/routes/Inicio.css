@@ -1,0 +1,266 @@
+.inicio-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.design {
+  display: flex;
+  margin-top: 150px;
+}
+
+.desigo {
+  width: 100%;
+}
+
+/* Main Content */
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  margin-bottom: 80px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.section-header h2 i {
+  color: #3498db;
+  font-size: 2rem;
+}
+
+.section-header p {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Items Grid */
+.items-grid {
+  display: flex;
+  gap: 30px;
+  padding: 40px 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  justify-content: center;
+}
+
+.items-grid::-webkit-scrollbar {
+  display: none;
+}
+
+/* Product Cards */
+.produto {
+  background: white;
+  border-radius: 25px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: none;
+  overflow: hidden;
+  min-height: 450px;
+  flex: 0 0 auto;
+  width: 280px;
+}
+
+.produto:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+}
+
+.produto img {
+  max-width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 25px;
+}
+
+.produto p {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.produto h7 {
+  font-size: 1.4rem;
+  color: white;
+  font-weight: 800;
+  display: block;
+  margin-bottom: 25px;
+}
+
+.add-to-cart {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  border: none;
+  padding: 15px 35px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.add-to-cart:hover {
+  background: linear-gradient(135deg, #2980b9, #1f4e79);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+}
+
+/* Loading */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 20px;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #ecf0f1;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-container p {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section-header h2 {
+    font-size: 2rem;
+  }
+  
+  .items-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+  }
+  
+  .produto {
+    padding: 30px;
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-header h2 {
+    font-size: 1.8rem;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .items-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* Carousel Container */
+.carousel-container {
+  position: relative;
+  padding: 0 20px;
+}
+
+.carousel-container .items-grid {
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(52, 152, 219, 0.9);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  display: none;
+}
+
+.carousel-arrow:hover {
+  background: rgba(52, 152, 219, 1);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-arrow.prev {
+  left: 10px;
+}
+
+.carousel-arrow.next {
+  right: 10px;
+}
+
+@media (min-width: 769px) {
+  .carousel-container .items-grid {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-container .items-grid {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    justify-content: flex-start;
+    padding: 40px;
+    scroll-snap-type: x mandatory;
+  }
+  
+  .carousel-container .items-grid::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .carousel-container .produto {
+    flex-shrink: 0;
+    min-width: 280px;
+    scroll-snap-align: center;
+  }
+  
+  .carousel-arrow {
+    display: block;
+  }
+  
+  .carousel-container {
+    padding: 0 60px;
+  }
+}

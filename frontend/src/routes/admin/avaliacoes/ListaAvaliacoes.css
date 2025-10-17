@@ -1,0 +1,51 @@
+@import url('../paises/PaisesAdminLista.css');
+
+.estrelas {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.estrela-ativa {
+  color: #ffc107;
+  font-size: 1.2rem;
+}
+
+.estrela-inativa {
+  color: #ddd;
+  font-size: 1.2rem;
+}
+
+.nota-numero {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.nota-cell {
+  min-width: 120px;
+}
+
+.comentario-cell {
+  max-width: 300px;
+}
+
+.comentario-preview {
+  line-height: 1.4;
+  color: #555;
+}
+
+.produto-cell, .usuario-cell {
+  min-width: 150px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .comentario-cell {
+    max-width: 200px;
+  }
+  
+  .estrelas {
+    justify-content: center;
+  }
+}

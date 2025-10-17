@@ -1,0 +1,36 @@
+# IDE
+.metadata/
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build outputs
+target/
+build/
+dist/
+
+# Dependencies
+node_modules/
+
+# Flutter
+.dart_tool/
+.flutter-plugins-dependencies
+
+# Database
+*.db
+*.sqlite
+
+# Environment
+.env
+local.properties

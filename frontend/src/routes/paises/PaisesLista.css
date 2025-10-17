@@ -1,0 +1,134 @@
+.paises-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding-top: 0px;
+}
+
+.paises-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 20px 20px 40px;
+}
+
+.paises-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.paises-header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.paises-header p {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.paises-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  padding: 20px 0;
+  justify-items: center;
+}
+
+.paises-grid .produto {
+  background: #38b6ff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 60px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: none;
+  overflow: hidden;
+  min-height: 320px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.paises-grid .produto:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.paises-grid .produto i {
+  font-size: 6rem !important;
+  margin-bottom: 20px;
+}
+
+.paises-grid .produto h7 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.paises-grid .add-to-cart {
+  background: #206389;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.paises-grid .add-to-cart:hover {
+  background: #1a5470;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(32, 99, 137, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .paises-grid {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .paises-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .paises-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    justify-items: center;
+  }
+  
+  .paises-grid .produto i {
+    font-size: 4rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .paises-header h1 {
+    font-size: 2rem;
+  }
+  
+  .paises-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    justify-items: center;
+  }
+  
+  .paises-grid .produto i {
+    font-size: 3rem !important;
+  }
+}

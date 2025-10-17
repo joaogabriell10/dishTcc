@@ -1,0 +1,68 @@
+@import url('../paises/PaisesAdminLista.css');
+
+.produto-cell {
+  min-width: 200px;
+}
+
+.produto-nome {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.imagem-cell {
+  width: 100px;
+}
+
+.produto-preview {
+  width: 70px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+}
+
+.preco-cell {
+  min-width: 100px;
+}
+
+.preco-valor {
+  font-weight: 600;
+  color: var(--cor-secundaria);
+  font-size: 1.1rem;
+}
+
+.pais-cell {
+  min-width: 150px;
+}
+
+.pais-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tipo-cell {
+  min-width: 120px;
+}
+
+.tipo-badge {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .produto-preview {
+    width: 50px;
+    height: 35px;
+  }
+  
+  .pais-info {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+}

@@ -1,0 +1,128 @@
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 200px);
+    padding: 1rem;
+    background: #ffffff;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 450px;
+    padding: 3rem;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #38b6ff, #2196f3, #1976d2);
+}
+
+.login-form h1 {
+    color: #2c3e50;
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.login-form h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #38b6ff, #2196f3);
+    border-radius: 2px;
+}
+
+.form-erro {
+    color: #e74c3c;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 1rem 0;
+    padding: 0.75rem;
+    background: rgba(231, 76, 60, 0.1);
+    border-radius: 10px;
+    border-left: 4px solid #e74c3c;
+}
+
+.login-opcoes {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.login-opcoes button {
+    width: 100%;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #38b6ff 0%, #2196f3 100%);
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(56, 182, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.login-opcoes button:hover {
+    background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(56, 182, 255, 0.4);
+}
+
+.login-opcoes button:active {
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .login {
+        padding: 1rem;
+        min-height: 70vh;
+    }
+    
+    .login-form {
+        padding: 2rem;
+        max-width: 100%;
+    }
+    
+    .login-form h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-form {
+        padding: 1.5rem;
+        border-radius: 20px;
+    }
+    
+    .login-form h1 {
+        font-size: 1.8rem;
+    }
+    
+    .login-opcoes button {
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+    }
+}
