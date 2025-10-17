@@ -8,4 +8,7 @@ import com.itb.tcc.entity.Pedido;
 public interface PedidoRepository extends RepositoryBase<Pedido> {
     // Método para buscar encomendas por usuário
     java.util.List<Pedido> findByUsuarioId(Long usuarioId);
+    
+    // Método para buscar encomendas por usuário ordenadas por data (mais recentes primeiro)
+    java.util.List<Pedido> findByUsuarioIdOrderByDataEncomendaDesc(Long usuarioId);
 }

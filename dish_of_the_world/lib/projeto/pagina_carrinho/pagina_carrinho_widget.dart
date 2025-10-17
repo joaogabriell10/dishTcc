@@ -315,8 +315,15 @@ class _PaginaCarrinhoWidgetState extends State<PaginaCarrinhoWidget> {
                                 ],
                               ),
                               FFButtonWidget(
-                                onPressed: () {
-                                  print('Finalizar pedido');
+                                onPressed: () async {
+                                  final sucesso = await CarrinhoService().finalizarPedido();
+                                  if (sucesso) {
+                                    context.pushNamed(EncomendaRealizadaPageWidget.routeName);
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text('Erro ao finalizar pedido')),
+                                    );
+                                  }
                                 },
                                 text: 'Finalizar Pedido',
                                 options: FFButtonOptions(

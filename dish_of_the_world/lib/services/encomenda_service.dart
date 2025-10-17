@@ -15,6 +15,34 @@ class EncomendaService {
     }
   }
 
+  // Listar encomendas por usuário
+  static Future<List<Encomenda>> listarEncomendasPorUsuario(int usuarioId) async {
+    try {
+      final response = await ApiService.get('encomendas/usuario/$usuarioId');
+      
+      if (response['success']) {
+        List<dynamic> data = response['data'];
+        return data.map((json) {
+          // Formatar a data se necessário
+          if (json['dataEncomenda'] != null) {
+            try {
+              DateTime dateTime = DateTime.parse(json['dataEncomenda']);
+              json['dataEncomenda'] = '${dateTime.day.toString().padLeft(2, '0')}/${dateTime.month.toString().padLeft(2, '0')}/${dateTime.year}';
+            } catch (e) {
+              // Manter o valor original se não conseguir parsear
+            }
+          }
+          return Encomenda.fromJson(json);
+        }).toList();
+      } else {
+        throw Exception('Erro ao carregar encomendas: ${response['error']}');
+      }
+    } catch (e) {
+      print('Erro no serviço de encomenda: $e');
+      throw Exception('Erro ao carregar encomendas: $e');
+    }
+  }
+
   // Criar nova encomenda
   static Future<bool> criarEncomenda(Map<String, dynamic> dados) async {
     final response = await ApiService.post('encomendas/salvar', dados);

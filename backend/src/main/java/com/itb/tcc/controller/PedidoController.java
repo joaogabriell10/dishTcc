@@ -32,6 +32,14 @@ public class PedidoController {
         return encomendas;
     }
     
+    @GetMapping("/usuario/{usuarioId}")
+    public List<Pedido> listarPorUsuario(@PathVariable long usuarioId) {
+        System.out.println("Listando encomendas do usuário: " + usuarioId);
+        List<Pedido> encomendas = repository.findByUsuarioIdOrderByDataEncomendaDesc(usuarioId);
+        System.out.println("Encontradas " + encomendas.size() + " encomendas para o usuário " + usuarioId);
+        return encomendas;
+    }
+    
     @GetMapping("/obter/{id}")
     public Pedido obter(@PathVariable long id) {
         return repository.findById(id).orElse(null);

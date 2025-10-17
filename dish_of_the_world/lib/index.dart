@@ -19,6 +19,8 @@ export '/projeto/encomenda_cancelada_page/encomenda_cancelada_page_widget.dart'
     show EncomendaCanceladaPageWidget;
 export '/projeto/minhas_encomendas/minhas_encomendas_widget.dart'
     show MinhasEncomendasWidget;
+export '/projeto/detalhes_encomenda/detalhes_encomenda_widget.dart'
+    show DetalhesEncomendaWidget;
 export '/projeto/historico_page/historico_page_widget.dart'
     show HistoricoPageWidget;
 export '/projeto/senha/senha_widget.dart' show SenhaWidget;

@@ -26,6 +26,9 @@ class InfContaPageModel extends FlutterFlowModel<InfContaPageWidget> {
   FocusNode? textFieldFocusNode5;
   TextEditingController? textController5;
   String? Function(BuildContext, String?)? textController5Validator;
+  
+  // User data
+  String? userEmail;
 
   @override
   void initState(BuildContext context) {}
