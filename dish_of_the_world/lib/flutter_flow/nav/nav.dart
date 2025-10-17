@@ -191,6 +191,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: PaginaCarrinhoWidget.routeName,
           path: PaginaCarrinhoWidget.routePath,
           builder: (context, params) => PaginaCarrinhoWidget(),
+        ),
+        FFRoute(
+          name: ProblemasRetiradaWidget.routeName,
+          path: ProblemasRetiradaWidget.routePath,
+          builder: (context, params) => ProblemasRetiradaWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

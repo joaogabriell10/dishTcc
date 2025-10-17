@@ -187,46 +187,55 @@ class _AjudaPageWidgetState extends State<AjudaPageWidget>
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(50.0, 0.0, 50.0, 0.0),
-                      child: Container(
-                        width: 343.3,
-                        height: 38.9,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          borderRadius: BorderRadius.circular(22.0),
-                          border: Border.all(
-                            color: FlutterFlowTheme.of(context).secondaryText,
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed(ProblemasRetiradaWidget.routeName);
+                        },
+                        child: Container(
+                          width: 343.3,
+                          height: 38.9,
+                          decoration: BoxDecoration(
+                            color:
+                                FlutterFlowTheme.of(context).secondaryBackground,
+                            borderRadius: BorderRadius.circular(22.0),
+                            border: Border.all(
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                            ),
                           ),
-                        ),
-                        child: Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
-                                child: Text(
-                                  'Problemas de retirada ',
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.nunitoSans(
+                          child: Align(
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: Stack(
+                              children: [
+                                Align(
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  child: Text(
+                                    'Problemas de retirada ',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.nunitoSans(
+                                            fontWeight: FontWeight.bold,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.bold,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                          fontStyle: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .fontStyle,
                                         ),
-                                        fontSize: 16.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),

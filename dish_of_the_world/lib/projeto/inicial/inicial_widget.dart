@@ -292,7 +292,7 @@ class _InicialWidgetState extends State<InicialWidget> {
                                                                                     ClipRRect(
                                                                                       borderRadius: BorderRadius.circular(0.0),
                                                                                       child: Image.asset(
-                                                                                        'assets/images/Inserir_um_ttulo.png',
+                                                                                        'assets/images/Inserir_um_título.png',
                                                                                         width: double.infinity,
                                                                                         height: 200.0,
                                                                                         fit: BoxFit.cover,

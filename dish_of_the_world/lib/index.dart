@@ -31,3 +31,5 @@ export '/projeto/massas/massas_widget.dart' show MassasWidget;
 export '/projeto/endereco/endereco_widget.dart' show EnderecoWidget;
 export '/projeto/pagina_carrinho/pagina_carrinho_widget.dart'
     show PaginaCarrinhoWidget;
+export '/projeto/problemas_retirada/problemas_retirada_widget.dart'
+    show ProblemasRetiradaWidget;
