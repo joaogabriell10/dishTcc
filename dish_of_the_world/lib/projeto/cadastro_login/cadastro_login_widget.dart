@@ -8,6 +8,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '/services/user_service.dart';
+import '/services/http_service.dart';
 import 'cadastro_login_model.dart';
 export 'cadastro_login_model.dart';
 
@@ -1570,6 +1571,8 @@ class _CadastroLoginWidgetState extends State<CadastroLoginWidget>
                                                                 name: userData['nome'] ?? 'Usuário',
                                                                 email: userData['email'] ?? '',
                                                                 id: userData['id'] ?? 0,
+                                                                cpf: userData['cpf'],
+                                                                telefone: userData['telefone'],
                                                               );
                                                               
                                                               ScaffoldMessenger.of(context).showSnackBar(

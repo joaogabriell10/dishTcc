@@ -3,6 +3,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
+import '/services/user_service.dart';
+import '/services/http_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -44,14 +46,42 @@ class _InfContaPageWidgetState extends State<InfContaPageWidget> {
     _model.textController5 ??= TextEditingController();
     _model.textFieldFocusNode5 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {
-          _model.textController1?.text = 'Ana Machado Costa';
-          _model.textController2?.text = '357.387.685.09';
-          _model.textController3?.text = '31/05/1999';
-          _model.textController4?.text = ' +55 11 99987-9900';
-          _model.textController5?.text =
-              'R. Jardim Matriz - 73, Vila Campos,SP';
-        }));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _loadUserData());
+  }
+
+  Future<void> _loadUserData() async {
+    // Primeiro, tenta carregar dados locais
+    final userName = await UserService.getUserName();
+    final userEmail = await UserService.getUserEmail();
+    final userCpf = await UserService.getUserCpf();
+    final userTelefone = await UserService.getUserTelefone();
+    final userId = await UserService.getUserId();
+    
+    // Se temos o ID do usuário, busca dados completos do backend
+    if (userId != null) {
+      final userData = await HttpService.getUserById(userId);
+      if (userData != null) {
+        safeSetState(() {
+          _model.textController1?.text = userData['nome'] ?? userName ?? 'Nome não disponível';
+          _model.textController2?.text = userData['cpf'] ?? userCpf ?? 'CPF não disponível';
+          _model.textController3?.text = 'Data não disponível'; // Campo não existe no backend
+          _model.textController4?.text = userData['telefone'] ?? userTelefone ?? 'Telefone não disponível';
+          _model.textController5?.text = 'Endereço não disponível'; // Campo não existe no backend
+          _model.userEmail = userData['email'] ?? userEmail ?? 'Email não disponível';
+        });
+        return;
+      }
+    }
+    
+    // Fallback para dados locais se não conseguir buscar do backend
+    safeSetState(() {
+      _model.textController1?.text = userName ?? 'Nome não disponível';
+      _model.textController2?.text = userCpf ?? 'CPF não disponível';
+      _model.textController3?.text = 'Data não disponível';
+      _model.textController4?.text = userTelefone ?? 'Telefone não disponível';
+      _model.textController5?.text = 'Endereço não disponível';
+      _model.userEmail = userEmail ?? 'Email não disponível';
+    });
   }
 
   @override
@@ -189,7 +219,7 @@ class _InfContaPageWidgetState extends State<InfContaPageWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       70.0, 100.0, 0.0, 0.0),
                                   child: Text(
-                                    'Ana Machado Costa',
+                                    _model.textController1?.text ?? 'Carregando...',
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .headlineLarge
@@ -380,7 +410,6 @@ class _InfContaPageWidgetState extends State<InfContaPageWidget> {
                                 controller: _model.textController2,
                                 focusNode: _model.textFieldFocusNode2,
                                 autofocus: false,
-                                readOnly: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   isDense: true,
@@ -579,7 +608,7 @@ class _InfContaPageWidgetState extends State<InfContaPageWidget> {
                               child: TextFormField(
                                 controller: _model.textController4,
                                 focusNode: _model.textFieldFocusNode4,
-                                autofocus: true,
+                                autofocus: false,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   isDense: true,
