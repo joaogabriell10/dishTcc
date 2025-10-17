@@ -1,4 +1,5 @@
 import '/models/produto.dart';
+import '/services/encomenda_service.dart';
 
 class CarrinhoService {
   static final CarrinhoService _instance = CarrinhoService._internal();
@@ -40,6 +41,33 @@ class CarrinhoService {
   double get total {
     return _itens.fold(0.0, (sum, item) => 
         sum + (item['produto'].preco * item['quantidade']));
+  }
+
+  Future<bool> finalizarPedido() async {
+    try {
+      for (var item in _itens) {
+        final produto = item['produto'];
+        final quantidade = item['quantidade'];
+        
+        final encomendaData = {
+          'dataEncomenda': DateTime.now().toIso8601String(),
+          'usuarioId': 1, // TODO: pegar do usuário logado
+          'quantidade': quantidade,
+          'preco': produto.preco * quantidade,
+          'produtoId': produto.id,
+          'status': 1,
+          'retirada': false,
+        };
+        
+        await EncomendaService.criarEncomenda(encomendaData);
+      }
+      
+      limpar();
+      return true;
+    } catch (e) {
+      print('Erro ao finalizar pedido: $e');
+      return false;
+    }
   }
 
   void limpar() {
