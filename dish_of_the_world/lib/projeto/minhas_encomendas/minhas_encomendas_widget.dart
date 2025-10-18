@@ -1,11 +1,8 @@
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
 import '/models/encomenda.dart';
-import '/services/encomenda_service.dart';
-import '/projeto/detalhes_encomenda/detalhes_encomenda_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'minhas_encomendas_model.dart';
@@ -29,7 +26,14 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => MinhasEncomendasModel());
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    _carregarDados();
+  }
+
+  void _carregarDados() async {
+    await _model.carregarEncomendas();
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -59,7 +63,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
             ),
             onChanged: (value) {
               _model.buscarEncomendas(value);
-              safeSetState(() {});
+              setState(() {});
             },
           ),
           SizedBox(height: 12),
@@ -75,7 +79,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                     selected: isSelected,
                     onSelected: (selected) {
                       _model.filtrarPorStatus(status);
-                      safeSetState(() {});
+                      setState(() {});
                     },
                     backgroundColor: Colors.grey[200],
                     selectedColor: Color(0xFF38B6FF),
@@ -332,7 +336,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
         ),
       );
       
-      safeSetState(() {});
+      setState(() {});
     } catch (e) {
       Navigator.of(context).pop();
       
@@ -393,7 +397,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
               ),
               onPressed: () async {
                 await _model.carregarEncomendas();
-                safeSetState(() {});
+                setState(() {});
               },
             ),
           ],
@@ -458,7 +462,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                                       ElevatedButton.icon(
                                         onPressed: () async {
                                           await _model.carregarEncomendas();
-                                          safeSetState(() {});
+                                          setState(() {});
                                         },
                                         icon: Icon(Icons.refresh),
                                         label: Text('Tentar novamente'),
@@ -488,7 +492,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                                           SizedBox(height: 16),
                                           Text(
                                             _model.encomendas.isEmpty
-                                                ? 'Você ainda não fez nenhuma encomenda'
+                                                ? 'Você ainda não fez nenhuma encomenda. Explore nossos pratos e faça seu primeiro pedido!'
                                                 : 'Nenhuma encomenda encontrada',
                                             style: GoogleFonts.nunitoSans(
                                               fontSize: 18,
@@ -497,21 +501,21 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                                             ),
                                             textAlign: TextAlign.center,
                                           ),
-                                          SizedBox(height: 8),
-                                          Text(
-                                            _model.encomendas.isEmpty
-                                                ? 'Explore nossos pratos e faça seu primeiro pedido!'
-                                                : 'Tente ajustar os filtros ou buscar por outro termo',
-                                            style: GoogleFonts.nunitoSans(
-                                              color: Colors.grey[500],
+                                          if (!_model.encomendas.isEmpty) ...[
+                                            SizedBox(height: 8),
+                                            Text(
+                                              'Tente ajustar os filtros ou buscar por outro termo',
+                                              style: GoogleFonts.nunitoSans(
+                                                color: Colors.grey[500],
+                                              ),
+                                              textAlign: TextAlign.center,
                                             ),
-                                            textAlign: TextAlign.center,
-                                          ),
+                                          ],
                                           if (_model.encomendas.isEmpty) ...[
                                             SizedBox(height: 24),
                                             ElevatedButton(
                                               onPressed: () {
-                                                context.pushNamed(InicialWidget.routeName);
+                                                context.go('/cardapio');
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: Color(0xFF38B6FF),
@@ -527,7 +531,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                                 : RefreshIndicator(
                                     onRefresh: () async {
                                       await _model.carregarEncomendas();
-                                      safeSetState(() {});
+                                      setState(() {});
                                     },
                                     child: ListView.builder(
                                       padding: EdgeInsets.only(bottom: 100),

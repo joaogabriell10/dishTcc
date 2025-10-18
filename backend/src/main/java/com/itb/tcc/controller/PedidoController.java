@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.itb.tcc.entity.Pedido;
+import com.itb.tcc.entity.Produto;
+import com.itb.tcc.enums.Status;
 import com.itb.tcc.repository.PedidoRepository;
+import com.itb.tcc.repository.ProdutoRepository;
 
 @RestController
 @RequestMapping("/encomendas")
@@ -23,6 +26,9 @@ public class PedidoController {
     
     @Autowired
     private PedidoRepository repository;
+    
+    @Autowired
+    private ProdutoRepository produtoRepository;
     
     @GetMapping("/listar")
     public List<Pedido> listar() {
@@ -127,9 +133,20 @@ public class PedidoController {
             
             pedido.setComentario("Encomenda criada via sistema");
             
-            // Definir produto ID (obrigatório)
+            // Definir produto ID (obrigatório) e validar se está ativo
             if (dados.get("produtoId") != null) {
-                pedido.setProdutoId(Long.valueOf(dados.get("produtoId").toString()));
+                Long produtoId = Long.valueOf(dados.get("produtoId").toString());
+                
+                // Validar se o produto existe e está ativo
+                Produto produto = produtoRepository.findById(produtoId).orElse(null);
+                if (produto == null) {
+                    throw new RuntimeException("Produto não encontrado");
+                }
+                if (produto.getStatus() != Status.ATIVO.getValor()) {
+                    throw new RuntimeException("Este produto não está mais disponível para encomenda");
+                }
+                
+                pedido.setProdutoId(produtoId);
             } else {
                 throw new RuntimeException("produtoId é obrigatório");
             }

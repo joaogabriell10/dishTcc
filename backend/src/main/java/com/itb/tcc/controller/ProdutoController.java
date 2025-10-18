@@ -91,6 +91,11 @@ public class ProdutoController extends ControllerBase<Produto, ProdutoRepository
         return repository.findByNomeContaining(consulta);
     }
 
+    @GetMapping("disponiveis")
+    public List<Produto> produtosDisponiveis() {
+        return repository.findAllByStatus(Status.ATIVO.getValor());
+    }
+
     @GetMapping("home/favoritas")
     public Produto[] produtosFavoritos() {
 

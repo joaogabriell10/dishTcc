@@ -101,6 +101,20 @@ class ApiService {
     }
   }
 
+  // Buscar produtos disponíveis para encomenda (apenas ativos)
+  static Future<List<Produto>> getProdutosDisponiveis() async {
+    try {
+      final response = await get('produtos/disponiveis');
+      if (response['success']) {
+        final List<dynamic> data = response['data'];
+        return data.map((json) => Produto.fromJson(json)).toList();
+      }
+      return [];
+    } catch (e) {
+      return [];
+    }
+  }
+
   // Buscar todos os países ativos
   static Future<List<Pais>> getPaises() async {
     try {

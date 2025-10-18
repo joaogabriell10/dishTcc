@@ -44,9 +44,27 @@ class EncomendaService {
   }
 
   // Criar nova encomenda
-  static Future<bool> criarEncomenda(Map<String, dynamic> dados) async {
+  static Future<Map<String, dynamic>> criarEncomenda(Map<String, dynamic> dados) async {
+    print('EncomendaService.criarEncomenda chamado com: $dados');
+    
+    // Validar se o produto está disponível
+    if (dados['produtoId'] != null) {
+      final produtosDisponiveis = await ApiService.getProdutosDisponiveis();
+      final produtoDisponivel = produtosDisponiveis.any(
+        (produto) => produto.id == dados['produtoId']
+      );
+      
+      if (!produtoDisponivel) {
+        return {
+          'success': false, 
+          'error': 'Este produto não está mais disponível para encomenda'
+        };
+      }
+    }
+    
     final response = await ApiService.post('encomendas/salvar', dados);
-    return response['success'];
+    print('Resposta do backend: $response');
+    return response;
   }
 
   // Atualizar encomenda

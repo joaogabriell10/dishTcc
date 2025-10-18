@@ -1,3 +1,5 @@
+import 'produto.dart';
+
 class Encomenda {
   final int? id;
   final String? dataEncomenda;
@@ -72,18 +74,3 @@ class Usuario {
   }
 }
 
-class Produto {
-  final int? id;
-  final String? nome;
-  final double? preco;
-
-  Produto({this.id, this.nome, this.preco});
-
-  factory Produto.fromJson(Map<String, dynamic> json) {
-    return Produto(
-      id: json['id'],
-      nome: json['nome'],
-      preco: json['preco']?.toDouble(),
-    );
-  }
-}

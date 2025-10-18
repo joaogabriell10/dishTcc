@@ -155,7 +155,7 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                   _buildCard(
                     Icons.access_time,
                     'Horário de Funcionamento',
-                    'Segunda a sábado: 10h às 22h\nDomingos: 12h às 20h',
+                    'Segunda a sexta: 08:00-20:00\nSábado: 08:00-18:00\nDomingo: 08:00-14:00',
                     Color(0xFF2196F3),
                   ),
                   SizedBox(height: 16.0),
@@ -412,8 +412,7 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                       font: GoogleFonts.nunitoSans(),
                       color: Color(0xFF424242),
                       letterSpacing: 0.0,
-                      height: 1.5,
-                    ),
+                    ).copyWith(height: 1.5),
               ),
             ),
           ],

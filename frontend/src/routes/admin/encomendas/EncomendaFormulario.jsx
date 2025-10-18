@@ -87,7 +87,7 @@ export default () => {
           usuarioId: usuarioId,
           produtoId: item.produtoId,
           dataEncomenda: dataEncomenda || new Date().toISOString(),
-          valorTotal: item.subtotal,
+          valorTotal: item.precoUnitario,
           quantidade: item.quantidade,
           preco: item.precoUnitario,
           status: 1

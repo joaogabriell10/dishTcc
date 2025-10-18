@@ -18,6 +18,7 @@ export default () => {
     try {
       setLoading(true);
       const resposta = await Requisicao.obter(BackendEndPoints.encomendas.listar);
+
       setEncomendas(resposta.dados);
     } catch (error) {
       console.error("Erro ao carregar encomendas:", error);

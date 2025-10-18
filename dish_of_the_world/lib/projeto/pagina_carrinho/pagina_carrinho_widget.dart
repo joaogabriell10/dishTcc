@@ -32,12 +32,21 @@ class _PaginaCarrinhoWidgetState extends State<PaginaCarrinhoWidget> {
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+    
+    // Configurar callback para atualizar a interface quando o carrinho mudar
+    CarrinhoService().setOnCarrinhoChanged(() {
+      if (mounted) {
+        safeSetState(() {});
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
   void dispose() {
+    // Limpar o callback
+    CarrinhoService().setOnCarrinhoChanged(null);
     _model.dispose();
     super.dispose();
   }
@@ -197,7 +206,6 @@ class _PaginaCarrinhoWidgetState extends State<PaginaCarrinhoWidget> {
                                               IconButton(
                                                 onPressed: () {
                                                   CarrinhoService().atualizarQuantidade(produto.id, quantidade - 1);
-                                                  safeSetState(() {});
                                                 },
                                                 icon: Icon(Icons.remove, size: 20),
                                               ),
@@ -205,7 +213,6 @@ class _PaginaCarrinhoWidgetState extends State<PaginaCarrinhoWidget> {
                                               IconButton(
                                                 onPressed: () {
                                                   CarrinhoService().atualizarQuantidade(produto.id, quantidade + 1);
-                                                  safeSetState(() {});
                                                 },
                                                 icon: Icon(Icons.add, size: 20),
                                               ),
