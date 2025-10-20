@@ -58,6 +58,25 @@ export default () => {
     }
   }
 
+  async function marcarProntoRetirada() {
+    try {
+      // Primeiro atualiza o estado local
+      const encomendasProntas = encomendas.map(enc => ({...enc, prontoParaRetirada: true}));
+      setEncomendas(encomendasProntas);
+      
+      // Depois envia para o backend
+      for (const encomenda of encomendasProntas) {
+        await Requisicao.enviar(BackendEndPoints.encomendas.atualizar, encomenda);
+      }
+      
+      alert("Encomenda marcada como pronta para retirada!");
+    } catch (error) {
+      alert("Erro ao marcar encomenda como pronta");
+      // Reverte o estado em caso de erro
+      obterEncomendas();
+    }
+  }
+
   const atualizarEncomenda = (index, campo, valor) => {
     const novasEncomendas = [...encomendas];
     if (campo === 'quantidade') {
@@ -154,6 +173,10 @@ export default () => {
                   </select>
                 )}
               </div>
+              <div className="campo-info">
+                <label>Pronto para retirada:</label>
+                <span>{encomendas[0]?.prontoParaRetirada ? 'Sim' : 'Não'}</span>
+              </div>
 
             </div>
             
@@ -203,6 +226,15 @@ export default () => {
               {!encomendas.every(enc => enc.retirada) && (
                 <button type="button" className="btn-salvar" onClick={salvarEncomendas}>
                   Atualizar
+                </button>
+              )}
+              {!encomendas.every(enc => enc.prontoParaRetirada) && !encomendas.every(enc => enc.retirada) && (
+                <button 
+                  type="button" 
+                  className="btn-pronto" 
+                  onClick={marcarProntoRetirada}
+                >
+                  Pronto Para Retirada
                 </button>
               )}
               <button 

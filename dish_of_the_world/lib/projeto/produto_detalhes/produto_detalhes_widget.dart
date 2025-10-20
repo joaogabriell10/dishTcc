@@ -125,7 +125,7 @@ class _ProdutoDetalhesWidgetState extends State<ProdutoDetalhesWidget> {
                     ),
                   ),
                   Text(
-                    'Tipo: ${widget.produto.tipoPrato}',
+                    'Tipo: ${widget.produto.tipoPrato ?? 'Não informado'}',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.nunitoSans(
                             fontWeight: FontWeight.bold,

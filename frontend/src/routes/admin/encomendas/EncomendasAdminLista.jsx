@@ -54,6 +54,7 @@ export default () => {
         dataEncomenda: encomenda.dataEncomenda,
         status: encomenda.status,
         retirada: encomenda.retirada,
+        prontoParaRetirada: encomenda.prontoParaRetirada || false,
         itens: [],
         valorTotal: 0
       };
@@ -68,6 +69,10 @@ export default () => {
     acc[chave].valorTotal += (encomenda.preco * encomenda.quantidade) || 0;
     // Atualizar retirada se todos os itens foram retirados
     acc[chave].retirada = acc[chave].itens.every(item => item.retirada);
+    // Atualizar prontoParaRetirada com o valor mais recente
+    if (encomenda.prontoParaRetirada !== undefined) {
+      acc[chave].prontoParaRetirada = encomenda.prontoParaRetirada;
+    }
     return acc;
   }, {});
 
@@ -135,6 +140,7 @@ export default () => {
                   <th>Data</th>
                   <th>Valor Total</th>
                   <th>Status</th>
+                  <th>Pronto para retirada</th>
                   <th>Retirada</th>
                   <th>Ações</th>
                 </tr>
@@ -173,6 +179,11 @@ export default () => {
                           {Status.obterNome(encomenda.status)}
                         </span>
                       </td>
+                      <td className="pronto-retirada-cell">
+                        <span className={`pronto-badge ${encomenda.prontoParaRetirada ? 'pronto-sim' : 'pronto-nao'}`}>
+                          {encomenda.prontoParaRetirada ? 'Sim' : 'Não'}
+                        </span>
+                      </td>
                       <td className="retirada-cell">
                         <span className={`retirada-badge ${encomenda.retirada ? 'retirada-sim' : 'retirada-nao'}`}>
                           {encomenda.retirada ? 'Sim' : 'Não'}
@@ -200,7 +211,7 @@ export default () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="9" className="no-data">
+                    <td colSpan="10" className="no-data">
                       {consulta ? "Nenhuma encomenda encontrada" : "Nenhuma encomenda cadastrada"}
                     </td>
                   </tr>

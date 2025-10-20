@@ -68,4 +68,25 @@ class UserService {
     final prefs = await SharedPreferences.getInstance();
     return prefs.containsKey(_userNameKey);
   }
+
+  // Métodos individuais para salvar dados
+  static Future<void> saveUserName(String name) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_userNameKey, name);
+  }
+
+  static Future<void> saveUserEmail(String email) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_userEmailKey, email);
+  }
+
+  static Future<void> saveUserCpf(String cpf) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_userCpfKey, cpf);
+  }
+
+  static Future<void> saveUserTelefone(String telefone) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_userTelefoneKey, telefone);
+  }
 }

@@ -66,12 +66,14 @@ class CarrinhoService {
         return false;
       }
       
+      final dataEncomenda = DateTime.now().toIso8601String();
+      
       for (var item in _itens) {
         final produto = item['produto'];
         final quantidade = item['quantidade'];
         
         final encomendaData = {
-          'dataEncomenda': DateTime.now().toIso8601String(),
+          'dataEncomenda': dataEncomenda, // Mesma data para agrupar
           'usuarioId': userId,
           'quantidade': quantidade,
           'preco': produto.preco,

@@ -31,13 +31,20 @@ export default () => {
                 BackendEndPoints.usuarios.login,
                 valores
               );
-              setMensagem("");
               const usuario = resposta.dados;
+              
+              // Verificar se o usuário é administrador
+              if (usuario.nivelAcesso !== "ADMIN" && usuario.nivelAcesso !== "ADMINISTRADOR") {
+                setMensagem("Você não tem acesso a esta área. Apenas administradores podem fazer login.");
+                return;
+              }
+              
+              setMensagem("");
               setNivelAcesso(usuario.nivelAcesso);
               setEmail(usuario.email);
               navigate(Rotas.admin.paises.lista);
             } catch (e) {
-              setMensagem("Login invalido");
+              setMensagem("Login inválido");
             }
           }}
         >

@@ -90,6 +90,10 @@ public class PedidoController {
                 pedido.setDataEncomenda(LocalDateTime.parse(dados.get("dataEncomenda").toString()));
             }
             
+            if (dados.get("prontoParaRetirada") != null) {
+                pedido.setProntoParaRetirada(Boolean.valueOf(dados.get("prontoParaRetirada").toString()));
+            }
+            
             repository.save(pedido);
             return "{\"success\": true, \"message\": \"Encomenda atualizada com sucesso\"}";
         } catch (Exception e) {
