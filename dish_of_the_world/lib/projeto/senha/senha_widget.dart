@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:url_launcher/url_launcher.dart';
+import '../../services/email_service.dart';
 import 'senha_model.dart';
 export 'senha_model.dart';
 
@@ -155,172 +157,81 @@ class _SenhaWidgetState extends State<SenhaWidget> {
                                                 ),
                                           ),
                                         ),
+
                                         Align(
-                                          alignment:
-                                              AlignmentDirectional(0.36, 0.4),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              context.pushNamed(
-                                                  CadastroLoginWidget
-                                                      .routeName);
-                                            },
-                                            child: Text(
-                                              'Cadastre-se',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    font:
-                                                        GoogleFonts.nunitoSans(
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
+                                          alignment: AlignmentDirectional(0.0, 0.4),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                'Não tem conta? ',
+                                                style: FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      font: GoogleFonts.nunitoSans(),
+                                                      fontSize: 15.0,
+                                                      letterSpacing: 0.0,
                                                     ),
-                                                    color: Color(0xFF38B6FF),
-                                                    fontSize: 15.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
-                                            ),
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment:
-                                              AlignmentDirectional(-0.31, 0.4),
-                                          child: Text(
-                                            'Não tem conta?',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  font: GoogleFonts.nunitoSans(
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
-                                                  fontSize: 15.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
+                                              ),
+                                              InkWell(
+                                                onTap: () async {
+                                                  context.pushNamed(
+                                                      CadastroLoginWidget.routeName,
+                                                      queryParameters: {
+                                                        'initialTab': '0'
+                                                      });
+                                                },
+                                                child: Text(
+                                                  'Cadastre-se',
+                                                  style: FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font: GoogleFonts.nunitoSans(),
+                                                        color: Color(0xFF38B6FF),
+                                                        fontSize: 15.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
                                                 ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         Align(
-                                          alignment:
-                                              AlignmentDirectional(-0.4, 0.36),
-                                          child: Text(
-                                            'Lembrou sua senha?',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  font: GoogleFonts.nunitoSans(
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
-                                                  fontSize: 15.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
-                                                ),
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment:
-                                              AlignmentDirectional(0.41, 0.36),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              context.pushNamed(
-                                                  CadastroLoginWidget
-                                                      .routeName);
-                                            },
-                                            child: Text(
-                                              'Fazer login',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    font:
-                                                        GoogleFonts.nunitoSans(
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
+                                          alignment: AlignmentDirectional(0.0, 0.36),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                'Lembrou sua senha? ',
+                                                style: FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      font: GoogleFonts.nunitoSans(),
+                                                      fontSize: 15.0,
+                                                      letterSpacing: 0.0,
                                                     ),
-                                                    color: Color(0xFF38B6FF),
-                                                    fontSize: 15.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
-                                            ),
+                                              ),
+                                              InkWell(
+                                                onTap: () async {
+                                                  context.pushNamed(
+                                                      CadastroLoginWidget.routeName,
+                                                      queryParameters: {
+                                                        'initialTab': '1'
+                                                      });
+                                                },
+                                                child: Text(
+                                                  'Fazer login',
+                                                  style: FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font: GoogleFonts.nunitoSans(),
+                                                        color: Color(0xFF38B6FF),
+                                                        fontSize: 15.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],
@@ -437,9 +348,27 @@ class _SenhaWidgetState extends State<SenhaWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Email de redefinição enviado!')),
+                        final email = _model.emailAddressTextController.text.trim();
+                        
+                        if (email.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Por favor, informe seu email'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                          return;
+                        }
+                        
+                        final Uri emailUri = Uri(
+                          scheme: 'mailto',
+                          path: 'suporte@dishoftheworld.com',
+                          query: 'subject=Redefinição de Senha&body=Olá,%0A%0ASolicito a redefinição da senha para o email: $email%0A%0AObrigado!',
                         );
+                        
+                        if (await canLaunchUrl(emailUri)) {
+                          await launchUrl(emailUri);
+                        }
                       },
                       text: 'Enviar Link',
                       options: FFButtonOptions(

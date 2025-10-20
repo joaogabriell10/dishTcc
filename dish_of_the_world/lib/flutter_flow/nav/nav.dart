@@ -95,7 +95,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: CadastroLoginWidget.routeName,
           path: CadastroLoginWidget.routePath,
-          builder: (context, params) => CadastroLoginWidget(),
+          builder: (context, params) => CadastroLoginWidget(
+            initialTab: params.getParam('initialTab', ParamType.String),
+          ),
         ),
         FFRoute(
           name: PratoJapaoWidget.routeName,

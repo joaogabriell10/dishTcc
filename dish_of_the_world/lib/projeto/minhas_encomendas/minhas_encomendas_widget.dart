@@ -30,7 +30,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
   }
 
   void _carregarDados() async {
-    await _model.carregarEncomendas();
+    await _model.carregarEncomendas(forceReload: true);
     if (mounted) {
       setState(() {});
     }
@@ -215,38 +215,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                   ),
                 ],
               ),
-              if (encomenda.comentario != null && encomenda.comentario!.isNotEmpty) ...[
-                SizedBox(height: 12),
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Observações:',
-                        style: GoogleFonts.nunitoSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey[700],
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        encomenda.comentario!,
-                        style: GoogleFonts.nunitoSans(
-                          fontSize: 14,
-                          color: Colors.grey[800],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+
               if (_model.podeSerCancelada(encomenda.status)) ...[
                 SizedBox(height: 16),
                 Row(
@@ -299,9 +268,16 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
               ),
             ),
             ElevatedButton(
-              onPressed: () async {
+              onPressed: () {
                 Navigator.of(context).pop();
-                await _cancelarEncomenda(encomenda.id!);
+                _model.cancelarEncomenda(encomenda.id!);
+                setState(() {});
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Pedido cancelado com sucesso!'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
@@ -325,7 +301,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
         ),
       );
 
-      await _model.cancelarEncomenda(encomendaId);
+      _model.cancelarEncomenda(encomendaId);
       
       Navigator.of(context).pop();
       
@@ -336,7 +312,9 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
         ),
       );
       
-      setState(() {});
+      // Recarregar os dados para garantir sincronização
+      _carregarDados();
+      
     } catch (e) {
       Navigator.of(context).pop();
       
@@ -396,8 +374,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                 size: 24.0,
               ),
               onPressed: () async {
-                await _model.carregarEncomendas();
-                setState(() {});
+                _carregarDados();
               },
             ),
           ],
@@ -461,7 +438,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                                       SizedBox(height: 24),
                                       ElevatedButton.icon(
                                         onPressed: () async {
-                                          await _model.carregarEncomendas();
+                                          await _model.carregarEncomendas(forceReload: true);
                                           setState(() {});
                                         },
                                         icon: Icon(Icons.refresh),
@@ -530,7 +507,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                                   )
                                 : RefreshIndicator(
                                     onRefresh: () async {
-                                      await _model.carregarEncomendas();
+                                      await _model.carregarEncomendas(forceReload: true);
                                       setState(() {});
                                     },
                                     child: ListView.builder(

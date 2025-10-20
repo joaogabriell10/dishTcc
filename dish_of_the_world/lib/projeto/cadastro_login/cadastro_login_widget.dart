@@ -13,7 +13,9 @@ import 'cadastro_login_model.dart';
 export 'cadastro_login_model.dart';
 
 class CadastroLoginWidget extends StatefulWidget {
-  const CadastroLoginWidget({super.key});
+  const CadastroLoginWidget({super.key, this.initialTab});
+
+  final String? initialTab;
 
   static String routeName = 'CadastroLogin';
   static String routePath = '/CadastroLogin';
@@ -35,10 +37,11 @@ class _CadastroLoginWidgetState extends State<CadastroLoginWidget>
     super.initState();
     _model = createModel(context, () => CadastroLoginModel());
 
+    final initialTabIndex = int.tryParse(widget.initialTab ?? '0') ?? 0;
     _model.tabBarController = TabController(
       vsync: this,
       length: 2,
-      initialIndex: 0,
+      initialIndex: initialTabIndex.clamp(0, 1),
     )..addListener(() => safeSetState(() {}));
 
     _model.emailAddressCreateTextController1 ??= TextEditingController();
