@@ -104,23 +104,18 @@ class _PaginaNotificacoesWidgetState extends State<PaginaNotificacoesWidget> {
                 child: ListView(
                   padding: EdgeInsets.zero,
                   children: [
+
                     _buildNotificationCard(
-                      icon: Icons.food_bank,
-                      title: 'Pedido Agendado !',
-                      time: '4 min',
-                      description: 'Feijoada marcada para ser retirada até 06/07 às 12h.',
-                    ),
-                    _buildNotificationCard(
-                      icon: Icons.local_offer,
-                      title: 'Cupom exclusivo !',
+                      icon: Icons.check_circle,
+                      title: 'Pedido Confirmado !',
                       time: '1 dia',
-                      description: 'Use: FOOD10 até 15/07 para 10% off',
+                      description: 'Seu pedido foi confirmado e está sendo preparado.',
                     ),
                     _buildNotificationCard(
-                      icon: Icons.local_offer,
-                      title: 'Promoção especial !',
+                      icon: Icons.notifications_active,
+                      title: 'Pedido Pronto !',
                       time: '5 dias',
-                      description: 'Compre dois pratos do mesmo país e ganhe 20% de desconto',
+                      description: 'Seu pedido está pronto para retirada. Venha buscar!',
                     ),
                     _buildNotificationCard(
                       icon: Icons.cancel,
@@ -135,10 +130,10 @@ class _PaginaNotificacoesWidgetState extends State<PaginaNotificacoesWidget> {
                       description: 'Venha experimentar massas e sabores típicos da Itália nesta sexta-feira.',
                     ),
                     _buildNotificationCard(
-                      icon: Icons.star,
-                      title: 'Desafio da Semana !',
+                      icon: Icons.new_releases,
+                      title: 'Novos Pratos !',
                       time: '15 dias',
-                      description: 'Experimente 3 pratos novos esta semana e ganhe 15% na próxima compra',
+                      description: 'Confira os novos pratos adicionados ao nosso cardápio esta semana.',
                     ),
                   ],
                 ),

@@ -79,16 +79,19 @@ class MinhasEncomendasModel extends FlutterFlowModel<MinhasEncomendasWidget> {
           throw Exception(response['error'] ?? 'Erro ao carregar pedidos');
         }
       } else {
-        // Se não há usuário logado, usar dados de exemplo para teste
-        print('Usuário não logado, usando dados de exemplo');
-        encomendas = _criarEncomendasExemplo();
+        // Se não há usuário logado, lista vazia
+        print('Usuário não logado');
+        encomendas = [];
       }
       
+<<<<<<< HEAD
       // TESTE: Sempre adicionar algumas encomendas de exemplo
       if (!forceReload) {
         encomendas.addAll(_criarEncomendasExemplo());
       }
       
+=======
+>>>>>>> e08bd5e1407eca7314b8fee10d7eb3aad09e041b
       aplicarFiltros();
     } catch (e) {
       print('Erro ao carregar encomendas: $e');
@@ -97,16 +100,21 @@ class MinhasEncomendasModel extends FlutterFlowModel<MinhasEncomendasWidget> {
       } else {
         errorMessage = 'Não foi possível carregar seus pedidos. Tente novamente em alguns instantes.';
       }
+<<<<<<< HEAD
       // Para debug, vamos usar dados de exemplo mesmo com erro
       if (encomendas.isEmpty) {
         encomendas = _criarEncomendasExemplo();
       }
+=======
+      encomendas = [];
+>>>>>>> e08bd5e1407eca7314b8fee10d7eb3aad09e041b
       aplicarFiltros();
     } finally {
       isLoading = false;
     }
   }
 
+<<<<<<< HEAD
   List<Encomenda> _criarEncomendasExemplo() {
     return [
       Encomenda(
@@ -196,12 +204,15 @@ class MinhasEncomendasModel extends FlutterFlowModel<MinhasEncomendasWidget> {
       ),
     ];
   }
+=======
+
+>>>>>>> e08bd5e1407eca7314b8fee10d7eb3aad09e041b
 
   void aplicarFiltros() {
     encomendasFiltradas = encomendas.where((encomenda) {
       // Filtro por status
       bool statusMatch = filtroStatus == 'Todas' || 
-          getStatusText(encomenda.status) == filtroStatus;
+          getStatusText(encomenda.status, prontoParaRetirada: encomenda.prontoParaRetirada, retirada: encomenda.retirada) == filtroStatus;
       
       // Filtro por busca (nome do produto ou número do pedido)
       bool searchMatch = searchQuery.isEmpty ||
@@ -245,6 +256,7 @@ class MinhasEncomendasModel extends FlutterFlowModel<MinhasEncomendasWidget> {
           produtoId: encomenda.produtoId,
           status: 5,
           retirada: encomenda.retirada,
+          prontoParaRetirada: encomenda.prontoParaRetirada,
           usuario: encomenda.usuario,
           produto: encomenda.produto,
         );
@@ -254,51 +266,69 @@ class MinhasEncomendasModel extends FlutterFlowModel<MinhasEncomendasWidget> {
     aplicarFiltros();
   }
 
-  String getStatusText(int? status) {
+  String getStatusText(int? status, {bool? prontoParaRetirada, bool? retirada}) {
+    if (retirada == true) {
+      return 'Retirada / Entregue';
+    }
+    if (prontoParaRetirada == true) {
+      return 'Pronta para retirada';
+    }
     switch (status) {
       case 1:
         return 'Confirmada';
       case 2:
+<<<<<<< HEAD
         return 'Em preparo';
       case 3:
         return 'Pronta para retirada';
       case 4:
         return 'Retirada / Entregue';
       case 5:
+=======
+>>>>>>> e08bd5e1407eca7314b8fee10d7eb3aad09e041b
         return 'Cancelada';
       default:
         return 'Desconhecido';
     }
   }
 
-  Color getStatusColor(int? status) {
+  Color getStatusColor(int? status, {bool? prontoParaRetirada, bool? retirada}) {
+    if (retirada == true) {
+      return Color(0xFF2196F3);
+    }
+    if (prontoParaRetirada == true) {
+      return Color(0xFF4CAF50);
+    }
     switch (status) {
       case 1:
         return Color(0xFF38B6FF);
       case 2:
+<<<<<<< HEAD
         return Color(0xFFFF9800);
       case 3:
         return Color(0xFF4CAF50);
       case 4:
         return Color(0xFF2196F3);
       case 5:
+=======
+>>>>>>> e08bd5e1407eca7314b8fee10d7eb3aad09e041b
         return Color(0xFFD0132E);
       default:
         return Color(0xFF757575);
     }
   }
 
-  IconData getStatusIcon(int? status) {
+  IconData getStatusIcon(int? status, {bool? prontoParaRetirada, bool? retirada}) {
+    if (retirada == true) {
+      return Icons.done_all;
+    }
+    if (prontoParaRetirada == true) {
+      return Icons.notifications_active;
+    }
     switch (status) {
       case 1:
         return Icons.check_circle_outline;
       case 2:
-        return Icons.restaurant;
-      case 3:
-        return Icons.notifications_active;
-      case 4:
-        return Icons.done_all;
-      case 5:
         return Icons.cancel;
       default:
         return Icons.help_outline;
@@ -312,7 +342,11 @@ class MinhasEncomendasModel extends FlutterFlowModel<MinhasEncomendasWidget> {
   List<String> get statusOptions => [
     'Todas',
     'Confirmada',
+<<<<<<< HEAD
     'Em preparo',
+=======
+    'Cancelada',
+>>>>>>> e08bd5e1407eca7314b8fee10d7eb3aad09e041b
     'Pronta para retirada',
     'Retirada / Entregue',
     'Cancelada'

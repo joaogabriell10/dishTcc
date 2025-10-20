@@ -64,9 +64,8 @@ class _InfContaPageWidgetState extends State<InfContaPageWidget> {
         safeSetState(() {
           _model.textController1?.text = userData['nome'] ?? userName ?? 'Nome não disponível';
           _model.textController2?.text = userData['cpf'] ?? userCpf ?? 'CPF não disponível';
-          _model.textController3?.text = 'Data não disponível'; // Campo não existe no backend
+          _model.textController3?.text = userData['email'] ?? userEmail ?? 'Email não disponível';
           _model.textController4?.text = userData['telefone'] ?? userTelefone ?? 'Telefone não disponível';
-          _model.textController5?.text = 'Endereço não disponível'; // Campo não existe no backend
           _model.userEmail = userData['email'] ?? userEmail ?? 'Email não disponível';
         });
         return;
@@ -77,11 +76,68 @@ class _InfContaPageWidgetState extends State<InfContaPageWidget> {
     safeSetState(() {
       _model.textController1?.text = userName ?? 'Nome não disponível';
       _model.textController2?.text = userCpf ?? 'CPF não disponível';
-      _model.textController3?.text = 'Data não disponível';
+      _model.textController3?.text = userEmail ?? 'Email não disponível';
       _model.textController4?.text = userTelefone ?? 'Telefone não disponível';
-      _model.textController5?.text = 'Endereço não disponível';
       _model.userEmail = userEmail ?? 'Email não disponível';
     });
+  }
+
+  Future<void> _salvarAlteracoes() async {
+    try {
+      final userId = await UserService.getUserId();
+      print('User ID: $userId');
+      
+      if (userId == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro: ID do usuário não encontrado'), backgroundColor: Colors.red),
+        );
+        return;
+      }
+
+      // Busca dados atuais do usuário primeiro
+      final currentUser = await HttpService.getUserById(userId);
+      if (currentUser == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro: Não foi possível carregar dados atuais'), backgroundColor: Colors.red),
+        );
+        return;
+      }
+
+      final userData = {
+        'id': userId,
+        'nome': _model.textController1?.text ?? '',
+        'cpf': _model.textController2?.text ?? '',
+        'email': _model.textController3?.text ?? '',
+        'telefone': _model.textController4?.text ?? '',
+        'nivelAcesso': currentUser['nivelAcesso'] ?? 'CLIENTE',
+        'senha': currentUser['senha'] ?? '',
+        'status': currentUser['status'] ?? 1,
+      };
+      
+      print('Dados a serem enviados: $userData');
+
+      final success = await HttpService.updateUser(userId, userData);
+      
+      if (success) {
+        await UserService.saveUserName(userData['nome'] as String);
+        await UserService.saveUserEmail(userData['email'] as String);
+        await UserService.saveUserCpf(userData['cpf'] as String);
+        await UserService.saveUserTelefone(userData['telefone'] as String);
+        
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Informações atualizadas com sucesso!'), backgroundColor: Colors.green),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro ao atualizar informações'), backgroundColor: Colors.red),
+        );
+      }
+    } catch (e) {
+      print('Erro em _salvarAlteracoes: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erro: $e'), backgroundColor: Colors.red),
+      );
+    }
   }
 
   @override
@@ -117,49 +173,7 @@ class _InfContaPageWidgetState extends State<InfContaPageWidget> {
                           height: 217.5,
                           child: Stack(
                             children: [
-                              Align(
-                                alignment: AlignmentDirectional(-1.0, 1.0),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      24.0, 0.0, 0.0, 16.0),
-                                  child: Container(
-                                    width: 90.0,
-                                    height: 90.0,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF206389),
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: Color(0xFF33B6FF),
-                                        width: 2.0,
-                                      ),
-                                    ),
-                                    child: Align(
-                                      alignment:
-                                          AlignmentDirectional(0.0, -1.0),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            4.0, 4.0, 4.0, 4.0),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(50.0),
-                                          child: CachedNetworkImage(
-                                            fadeInDuration:
-                                                Duration(milliseconds: 500),
-                                            fadeOutDuration:
-                                                Duration(milliseconds: 500),
-                                            imageUrl:
-                                                'https://images.unsplash.com/photo-1711845394209-60aff0e51336?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw4fHxtdWxoZXIlMjBldXJvcGVpYXxlbnwwfHx8fDE3NDkwMzI3MTl8MA&ixlib=rb-4.1.0&q=80&w=1080',
-                                            width: 100.0,
-                                            height: 100.0,
-                                            fit: BoxFit.cover,
-                                            alignment: Alignment(0.0, 0.0),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+
                               Align(
                                 alignment: AlignmentDirectional(-0.98, -0.51),
                                 child: FlutterFlowIconButton(
@@ -213,11 +227,12 @@ class _InfContaPageWidgetState extends State<InfContaPageWidget> {
                                   ),
                                 ),
                               ),
+
                               Align(
                                 alignment: AlignmentDirectional(0.0, 0.0),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      70.0, 100.0, 0.0, 0.0),
+                                      0.0, 100.0, 0.0, 0.0),
                                   child: Text(
                                     _model.textController1?.text ?? 'Carregando...',
                                     textAlign: TextAlign.center,
@@ -389,7 +404,6 @@ class _InfContaPageWidgetState extends State<InfContaPageWidget> {
                                                     .fontStyle,
                                           ),
                                       cursorColor: Color(0xFFFF4C4F),
-                                      enableInteractiveSelection: false,
                                       validator: _model.textController1Validator
                                           .asValidator(context),
                                     ),
@@ -411,6 +425,7 @@ class _InfContaPageWidgetState extends State<InfContaPageWidget> {
                                 focusNode: _model.textFieldFocusNode2,
                                 autofocus: false,
                                 obscureText: false,
+                                readOnly: true,
                                 decoration: InputDecoration(
                                   isDense: true,
                                   labelText: 'CPF:',
@@ -498,6 +513,7 @@ class _InfContaPageWidgetState extends State<InfContaPageWidget> {
                             ),
                           ),
                         ),
+
                         Align(
                           alignment: AlignmentDirectional(0.0, 0.0),
                           child: Padding(
@@ -508,12 +524,12 @@ class _InfContaPageWidgetState extends State<InfContaPageWidget> {
                               child: TextFormField(
                                 controller: _model.textController3,
                                 focusNode: _model.textFieldFocusNode3,
-                                autofocus: true,
-                                readOnly: true,
+                                autofocus: false,
                                 obscureText: false,
+                                readOnly: true,
                                 decoration: InputDecoration(
                                   isDense: true,
-                                  labelText: 'Data de nascimento:',
+                                  labelText: 'Email:',
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .titleMedium
                                       .override(
@@ -546,7 +562,7 @@ class _InfContaPageWidgetState extends State<InfContaPageWidget> {
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: Color(0xB338B6FF),
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -591,7 +607,6 @@ class _InfContaPageWidgetState extends State<InfContaPageWidget> {
                                           .fontStyle,
                                     ),
                                 cursorColor: Color(0xB338B6FF),
-                                enableInteractiveSelection: false,
                                 validator: _model.textController3Validator
                                     .asValidator(context),
                               ),
@@ -690,120 +705,21 @@ class _InfContaPageWidgetState extends State<InfContaPageWidget> {
                                           .fontStyle,
                                     ),
                                 cursorColor: Color(0xB338B6FF),
-                                enableInteractiveSelection: false,
                                 validator: _model.textController4Validator
                                     .asValidator(context),
                               ),
                             ),
                           ),
                         ),
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                25.0, 20.0, 25.0, 0.0),
-                            child: Container(
-                              width: 350.0,
-                              child: TextFormField(
-                                controller: _model.textController5,
-                                focusNode: _model.textFieldFocusNode5,
-                                autofocus: true,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  labelText: 'Endereço:',
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .titleMedium
-                                      .override(
-                                        font: GoogleFonts.nunitoSans(
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleMedium
-                                                  .fontStyle,
-                                        ),
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .titleMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleMedium
-                                            .fontStyle,
-                                      ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0xB338B6FF),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0xB338B6FF),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      font: GoogleFonts.nunitoSans(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                      color: Color(0xFF38B6FF),
-                                      fontSize: 15.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                cursorColor: Color(0xB338B6FF),
-                                enableInteractiveSelection: false,
-                                validator: _model.textController5Validator
-                                    .asValidator(context),
-                              ),
-                            ),
-                          ),
-                        ),
+
                         Align(
                           alignment: AlignmentDirectional(0.0, 0.0),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 50.0, 0.0, 0.0),
                             child: FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
+                              onPressed: () async {
+                                await _salvarAlteracoes();
                               },
                               text: 'Editar',
                               options: FFButtonOptions(

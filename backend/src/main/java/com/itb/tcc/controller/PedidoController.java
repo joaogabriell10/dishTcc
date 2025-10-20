@@ -96,10 +96,19 @@ public class PedidoController {
                 pedido.setDataEncomenda(LocalDateTime.parse(dados.get("dataEncomenda").toString()));
             }
             
+<<<<<<< HEAD
             Pedido pedidoSalvo = repository.save(pedido);
             System.out.println("Encomenda atualizada com sucesso. Novo status: " + pedidoSalvo.getStatus());
             
             return Map.of("success", true, "message", "Encomenda atualizada com sucesso", "data", pedidoSalvo);
+=======
+            if (dados.get("prontoParaRetirada") != null) {
+                pedido.setProntoParaRetirada(Boolean.valueOf(dados.get("prontoParaRetirada").toString()));
+            }
+            
+            repository.save(pedido);
+            return "{\"success\": true, \"message\": \"Encomenda atualizada com sucesso\"}";
+>>>>>>> e08bd5e1407eca7314b8fee10d7eb3aad09e041b
         } catch (Exception e) {
             System.err.println("Erro ao atualizar encomenda: " + e.getMessage());
             e.printStackTrace();

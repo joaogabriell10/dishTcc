@@ -98,6 +98,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
   }
 
   Widget _buildEncomendaCard(Encomenda encomenda) {
+    final double valorTotal = (encomenda.preco ?? 0.0) * (encomenda.quantidade ?? 1);
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 3,
@@ -131,20 +132,20 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: _model.getStatusColor(encomenda.status),
+                      color: _model.getStatusColor(encomenda.status, prontoParaRetirada: encomenda.prontoParaRetirada, retirada: encomenda.retirada),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
-                          _model.getStatusIcon(encomenda.status),
+                          _model.getStatusIcon(encomenda.status, prontoParaRetirada: encomenda.prontoParaRetirada, retirada: encomenda.retirada),
                           color: Colors.white,
                           size: 16,
                         ),
                         SizedBox(width: 4),
                         Text(
-                          _model.getStatusText(encomenda.status),
+                          _model.getStatusText(encomenda.status, prontoParaRetirada: encomenda.prontoParaRetirada, retirada: encomenda.retirada),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 12,
@@ -186,7 +187,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          encomenda.produto?.nome ?? 'Produto não disponível',
+                          _getProdutosTexto(encomenda),
                           style: GoogleFonts.nunitoSans(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -195,7 +196,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                         ),
                         SizedBox(height: 4),
                         Text(
-                          'Quantidade: ${encomenda.quantidade ?? 0}',
+                          _getQuantidadeTexto(encomenda),
                           style: GoogleFonts.nunitoSans(
                             fontSize: 14,
                             color: Colors.grey[600],
@@ -203,7 +204,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                         ),
                         SizedBox(height: 4),
                         Text(
-                          'Total: R\$ ${(encomenda.preco ?? 0.0).toStringAsFixed(2).replaceAll('.', ',')}',
+                          'Total: R\$ ${_getValorTotal(encomenda).toStringAsFixed(2)}',
                           style: GoogleFonts.nunitoSans(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
@@ -215,8 +216,44 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                   ),
                 ],
               ),
+<<<<<<< HEAD
 
               if (_model.podeSerCancelada(encomenda.status)) ...[
+=======
+              if (encomenda.comentario != null && encomenda.comentario!.isNotEmpty) ...[
+                SizedBox(height: 12),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Observações:',
+                        style: GoogleFonts.nunitoSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        encomenda.comentario!,
+                        style: GoogleFonts.nunitoSans(
+                          fontSize: 14,
+                          color: Colors.grey[800],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+              if (_model.podeSerCancelada(encomenda.status) && encomenda.prontoParaRetirada != true && encomenda.retirada != true) ...[
+>>>>>>> e08bd5e1407eca7314b8fee10d7eb3aad09e041b
                 SizedBox(height: 16),
                 Row(
                   children: [
@@ -512,10 +549,10 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                                     },
                                     child: ListView.builder(
                                       padding: EdgeInsets.only(bottom: 100),
-                                      itemCount: _model.encomendasFiltradas.length,
+                                      itemCount: _getEncomendasAgrupadas().length,
                                       itemBuilder: (context, index) {
                                         return _buildEncomendaCard(
-                                          _model.encomendasFiltradas[index],
+                                          _getEncomendasAgrupadas()[index],
                                         );
                                       },
                                     ),
@@ -566,6 +603,56 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
         ),
       ),
     );
+  }
+
+  List<Encomenda> _getEncomendasAgrupadas() {
+    final Map<String, List<Encomenda>> grupos = {};
+    
+    for (var encomenda in _model.encomendasFiltradas) {
+      final data = encomenda.dataEncomenda ?? '';
+      if (!grupos.containsKey(data)) {
+        grupos[data] = [];
+      }
+      grupos[data]!.add(encomenda);
+    }
+    
+    return grupos.values.map((grupo) => grupo.first).toList();
+  }
+
+  String _getProdutosTexto(Encomenda encomenda) {
+    final encomendasMesmaData = _model.encomendasFiltradas
+        .where((e) => e.dataEncomenda == encomenda.dataEncomenda)
+        .toList();
+    
+    if (encomendasMesmaData.length > 1) {
+      final produtos = encomendasMesmaData
+          .map((e) => e.produto?.nome ?? 'Produto')
+          .join(', ');
+      return produtos;
+    }
+    return encomenda.produto?.nome ?? 'Produto não disponível';
+  }
+
+  String _getQuantidadeTexto(Encomenda encomenda) {
+    final encomendasMesmaData = _model.encomendasFiltradas
+        .where((e) => e.dataEncomenda == encomenda.dataEncomenda)
+        .toList();
+    
+    if (encomendasMesmaData.length > 1) {
+      final quantidades = encomendasMesmaData
+          .map((e) => '${e.quantidade ?? 0}')
+          .join(', ');
+      return 'Quantidade: $quantidades';
+    }
+    return 'Quantidade: ${encomenda.quantidade ?? 0}';
+  }
+
+  double _getValorTotal(Encomenda encomenda) {
+    final encomendasMesmaData = _model.encomendasFiltradas
+        .where((e) => e.dataEncomenda == encomenda.dataEncomenda)
+        .toList();
+    
+    return encomendasMesmaData.fold(0.0, (sum, e) => sum + ((e.preco ?? 0.0) * (e.quantidade ?? 1)));
   }
 
   Widget _buildNavItem(IconData icon, String label, VoidCallback onTap) {

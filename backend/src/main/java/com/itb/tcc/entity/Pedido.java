@@ -33,6 +33,9 @@ public class Pedido extends EntityBase {
     @Column(name = "retirada")
     private Boolean retirada = false;
     
+    @Column(name = "prontoParaRetirada")
+    private Boolean prontoParaRetirada = false;
+    
     @Column(name = "dataRetirada")
     private LocalDateTime dataRetirada;
     
@@ -122,5 +125,13 @@ public class Pedido extends EntityBase {
     
     public void setDataRetirada(LocalDateTime dataRetirada) {
         this.dataRetirada = dataRetirada;
+    }
+    
+    public Boolean getProntoParaRetirada() {
+        return prontoParaRetirada;
+    }
+    
+    public void setProntoParaRetirada(Boolean prontoParaRetirada) {
+        this.prontoParaRetirada = prontoParaRetirada;
     }
 }
