@@ -19,6 +19,8 @@ public interface ProdutoRepository extends RepositoryBase<Produto> {
 
     //@Query(value = "select p.*, null as \"imagem\" from produto as p where paisId = :#{#pais.id}", nativeQuery = true)
     List<Produto> findAllByPais(Pais pais);
+    
+    List<Produto> findAllByPaisAndStatus(Pais pais, byte status);
 
     @Override
     //@Query(value = "select p.*, null as \"imagem\" from produto as p where status = true", nativeQuery = true)

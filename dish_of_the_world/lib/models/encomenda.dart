@@ -10,6 +10,7 @@ class Encomenda {
   final int? produtoId;
   final int? status;
   final bool? retirada;
+  final bool? prontoParaRetirada;
   final Usuario? usuario;
   final Produto? produto;
 
@@ -23,6 +24,7 @@ class Encomenda {
     this.produtoId,
     this.status,
     this.retirada,
+    this.prontoParaRetirada,
     this.usuario,
     this.produto,
   });
@@ -38,6 +40,7 @@ class Encomenda {
       produtoId: json['produtoId'],
       status: json['status'],
       retirada: json['retirada'],
+      prontoParaRetirada: json['prontoParaRetirada'],
       usuario: json['usuario'] != null ? Usuario.fromJson(json['usuario']) : null,
       produto: json['produto'] != null ? Produto.fromJson(json['produto']) : null,
     );
@@ -54,6 +57,7 @@ class Encomenda {
       'produtoId': produtoId,
       'status': status,
       'retirada': retirada,
+      'prontoParaRetirada': prontoParaRetirada,
     };
   }
 }

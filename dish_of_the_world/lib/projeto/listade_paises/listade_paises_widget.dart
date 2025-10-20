@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
+import '/projeto/pais_detalhes/pais_detalhes_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -610,6 +611,27 @@ class _ListadePaisesWidgetState extends State<ListadePaisesWidget> {
     );
   }
   
+  String? _getImagemPais(String nomePais) {
+    switch (nomePais.toLowerCase()) {
+      case 'itália':
+      case 'italia':
+        return 'assets/images/italiaDes.png';
+      case 'brasil':
+        return 'assets/images/brasilDes.png';
+      case 'japão':
+      case 'japao':
+        return 'assets/images/japaoDes.png';
+      case 'méxico':
+      case 'mexico':
+        return 'assets/images/mexicoDes.png';
+      case 'frança':
+      case 'franca':
+        return 'assets/images/francaDes.png';
+      default:
+        return null;
+    }
+  }
+
   Widget _buildPaisCard(Pais pais, BuildContext context) {
     Widget imagemWidget = Image.network(
       pais.capaUrl,
@@ -652,9 +674,16 @@ class _ListadePaisesWidgetState extends State<ListadePaisesWidget> {
       hoverColor: Colors.transparent,
       highlightColor: Colors.transparent,
       onTap: () async {
-        if (pais.nome == 'Itália') {
-          context.pushNamed(ItaliaWidget.routeName);
-        }
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PaisDetalhesWidget(
+              paisId: pais.id,
+              paisNome: pais.nome,
+              imagemPais: _getImagemPais(pais.nome),
+            ),
+          ),
+        );
       },
       child: Container(
         width: double.infinity,

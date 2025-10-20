@@ -96,6 +96,15 @@ public class ProdutoController extends ControllerBase<Produto, ProdutoRepository
         return repository.findAllByStatus(Status.ATIVO.getValor());
     }
 
+    @GetMapping("pais/{paisId}")
+    public List<Produto> produtosPorPais(@PathVariable long paisId) {
+        Pais pais = paisRepository.findById(paisId).orElse(null);
+        if (pais == null) {
+            return List.of();
+        }
+        return repository.findAllByPaisAndStatus(pais, Status.ATIVO.getValor());
+    }
+
     @GetMapping("home/favoritas")
     public Produto[] produtosFavoritos() {
 

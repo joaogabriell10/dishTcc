@@ -163,6 +163,34 @@
   border-radius: 4px;
 }
 
+.pronto-retirada-cell {
+  min-width: 120px;
+  text-align: center;
+}
+
+.pronto-retirada-cell .pronto-badge {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.pronto-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.pronto-sim {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.pronto-nao {
+  background-color: #f8d7da;
+  color: #721c24;
+  display: inline-block;
+}
+
 .retirada-cell {
   min-width: 80px;
   text-align: center;
@@ -198,6 +226,21 @@
 .btn-finalizar:disabled {
   background-color: #6c757d;
   cursor: not-allowed;
+}
+
+.btn-pronto {
+  padding: 8px 16px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #17a2b8;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.btn-pronto:hover {
+  background-color: #138496;
 }
 
 @media (max-width: 768px) {
