@@ -196,6 +196,26 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: ProblemasRetiradaWidget.routeName,
           path: ProblemasRetiradaWidget.routePath,
           builder: (context, params) => ProblemasRetiradaWidget(),
+        ),
+        FFRoute(
+          name: ErrosEncomendaWidget.routeName,
+          path: ErrosEncomendaWidget.routePath,
+          builder: (context, params) => ErrosEncomendaWidget(),
+        ),
+        FFRoute(
+          name: InconsistenciaAplicativoWidget.routeName,
+          path: InconsistenciaAplicativoWidget.routePath,
+          builder: (context, params) => InconsistenciaAplicativoWidget(),
+        ),
+        FFRoute(
+          name: InformacoesRetiradaWidget.routeName,
+          path: InformacoesRetiradaWidget.routePath,
+          builder: (context, params) => InformacoesRetiradaWidget(),
+        ),
+        FFRoute(
+          name: ReclamacaoWidget.routeName,
+          path: ReclamacaoWidget.routePath,
+          builder: (context, params) => ReclamacaoWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

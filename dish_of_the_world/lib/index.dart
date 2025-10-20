@@ -35,3 +35,11 @@ export '/projeto/pagina_carrinho/pagina_carrinho_widget.dart'
     show PaginaCarrinhoWidget;
 export '/projeto/problemas_retirada/problemas_retirada_widget.dart'
     show ProblemasRetiradaWidget;
+export '/projeto/erros_encomenda/erros_encomenda_widget.dart'
+    show ErrosEncomendaWidget;
+export '/projeto/inconsistencia_aplicativo/inconsistencia_aplicativo_widget.dart'
+    show InconsistenciaAplicativoWidget;
+export '/projeto/informacoes_retirada/informacoes_retirada_widget.dart'
+    show InformacoesRetiradaWidget;
+export '/projeto/reclamacao/reclamacao_widget.dart'
+    show ReclamacaoWidget;

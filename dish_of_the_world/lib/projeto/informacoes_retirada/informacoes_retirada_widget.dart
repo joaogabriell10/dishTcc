@@ -4,28 +4,28 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'problemas_retirada_model.dart';
-export 'problemas_retirada_model.dart';
+import 'informacoes_retirada_model.dart';
+export 'informacoes_retirada_model.dart';
 
-class ProblemasRetiradaWidget extends StatefulWidget {
-  const ProblemasRetiradaWidget({super.key});
+class InformacoesRetiradaWidget extends StatefulWidget {
+  const InformacoesRetiradaWidget({super.key});
 
-  static String routeName = 'ProblemasRetirada';
-  static String routePath = '/problemasRetirada';
+  static String routeName = 'InformacoesRetirada';
+  static String routePath = '/informacoesRetirada';
 
   @override
-  State<ProblemasRetiradaWidget> createState() => _ProblemasRetiradaWidgetState();
+  State<InformacoesRetiradaWidget> createState() => _InformacoesRetiradaWidgetState();
 }
 
-class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
-  late ProblemasRetiradaModel _model;
+class _InformacoesRetiradaWidgetState extends State<InformacoesRetiradaWidget> {
+  late InformacoesRetiradaModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ProblemasRetiradaModel());
+    _model = createModel(context, () => InformacoesRetiradaModel());
   }
 
   @override
@@ -61,7 +61,7 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
             },
           ),
           title: Text(
-            'Problemas de Retirada',
+            'Informações para Retirada',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   font: GoogleFonts.nunitoSans(
                     fontWeight: FontWeight.w600,
@@ -89,14 +89,14 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                     padding: EdgeInsets.all(28.0),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Color(0xFF38B6FF), Color(0xFF1976D2)],
+                        colors: [Color(0xFF4CAF50), Color(0xFF388E3C)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                       boxShadow: [
                         BoxShadow(
-                          color: Color(0x4038B6FF),
+                          color: Color(0x404CAF50),
                           offset: Offset(0, 8),
                           blurRadius: 20.0,
                         ),
@@ -111,14 +111,14 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                             borderRadius: BorderRadius.circular(50.0),
                           ),
                           child: Icon(
-                            Icons.help_center_rounded,
+                            Icons.info_rounded,
                             color: Colors.white,
                             size: 48.0,
                           ),
                         ),
                         SizedBox(height: 16.0),
                         Text(
-                          'Problemas de Retirada',
+                          'Informações para Retirada',
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context).headlineMedium.override(
                                 font: GoogleFonts.nunitoSans(
@@ -130,7 +130,7 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                         ),
                         SizedBox(height: 8.0),
                         Text(
-                          'Soluções rápidas para os problemas mais comuns',
+                          'Tudo que você precisa saber sobre a retirada',
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context).bodyLarge.override(
                                 font: GoogleFonts.nunitoSans(),
@@ -143,56 +143,64 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                   ),
                   SizedBox(height: 24.0),
                   
-                  // Problem Cards
+                  // Information Cards
                   _buildCard(
-                    Icons.location_on,
-                    'Local de Retirada',
-                    'Praça Senador José Roberto Leite Penteado, 490 - Lapa, SP',
-                    Color(0xFF4CAF50),
-                  ),
-                  SizedBox(height: 16.0),
-                  
-                  _buildCard(
-                    Icons.access_time,
-                    'Horário de Funcionamento',
-                    'Segunda a sexta: 08:00-20:00\nSábado: 08:00-18:00\nDomingo: 08:00-14:00',
+                    Icons.assignment_ind,
+                    'Documentos Necessários',
+                    'Apresente um documento oficial com foto (RG, CNH ou Passaporte). O documento deve estar dentro da validade.',
                     Color(0xFF2196F3),
                   ),
                   SizedBox(height: 16.0),
                   
                   _buildCard(
-                    Icons.badge,
-                    'Documentação Necessária',
-                    'Para a retirada do pedido, é necessário a apresentação de  documento com foto.',
+                    Icons.confirmation_number,
+                    'Código de Retirada',
+                    'Tenha em mãos o número do pedido disponível na página "Minhas Encomendas".',
                     Color(0xFFFF9800),
                   ),
                   SizedBox(height: 16.0),
                   
                   _buildCard(
                     Icons.schedule,
-                    'Prazo para Retirada',
-                    'O cliente tem até 5 dias para buscar a encomenda, passado esse tempo, o pedido estará sujeito a cancelamento.',
+                    'Prazo de Retirada',
+                    'Você tem até 5 dias úteis para retirar sua encomenda. Após esse período, o pedido poderá ser cancelado.',
                     Color(0xFF9C27B0),
+                  ),
+                  SizedBox(height: 16.0),
+                  
+                  _buildCard(
+                    Icons.person_outline,
+                    'Retirada por Terceiros',
+                    'Para retirada por terceiros, é necessário procuração simples, documento do titular e do responsável pela retirada.',
+                    Color(0xFF607D8B),
+                  ),
+                  SizedBox(height: 16.0),
+                  
+                  _buildCard(
+                    Icons.inventory_2,
+                    'Conferência do Pedido',
+                    'Confira todos os itens na hora da retirada. Após sair do local, não aceitamos reclamações sobre produtos faltantes.',
+                    Color(0xFFE91E63),
                   ),
                   SizedBox(height: 24.0),
                   
-                  // Contact Card
+                  // Location Card
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Color(0xFFFFF3E0), Color(0xFFFFE0B2)],
+                        colors: [Color(0xFFE8F5E8), Color(0xFFC8E6C9)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                       border: Border.all(
-                        color: Color(0xFFFF8A65),
+                        color: Color(0xFF81C784),
                         width: 2.0,
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: Color(0x20FF5722),
+                          color: Color(0x204CAF50),
                           offset: Offset(0, 6),
                           blurRadius: 15.0,
                         ),
@@ -209,19 +217,19 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                                 padding: EdgeInsets.all(12.0),
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(
-                                    colors: [Color(0xFFFF5722), Color(0xFFE64A19)],
+                                    colors: [Color(0xFF4CAF50), Color(0xFF388E3C)],
                                   ),
                                   borderRadius: BorderRadius.circular(12.0),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Color(0x30FF5722),
+                                      color: Color(0x304CAF50),
                                       offset: Offset(0, 4),
                                       blurRadius: 8.0,
                                     ),
                                   ],
                                 ),
                                 child: Icon(
-                                  Icons.support_agent,
+                                  Icons.location_on,
                                   color: Colors.white,
                                   size: 28.0,
                                 ),
@@ -232,20 +240,20 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Precisa de Ajuda?',
+                                      'Local de Retirada',
                                       style: FlutterFlowTheme.of(context).titleLarge.override(
                                             font: GoogleFonts.nunitoSans(
                                               fontWeight: FontWeight.bold,
                                             ),
-                                            color: Color(0xFFD84315),
+                                            color: Color(0xFF2E7D32),
                                             letterSpacing: 0.0,
                                           ),
                                     ),
                                     Text(
-                                      'Estamos aqui para você!',
+                                      'Endereço completo',
                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.nunitoSans(),
-                                            color: Color(0xFF8D6E63),
+                                            color: Color(0xFF4CAF50),
                                             letterSpacing: 0.0,
                                           ),
                                     ),
@@ -262,63 +270,56 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.all(8.0),
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF4CAF50),
-                                        borderRadius: BorderRadius.circular(8.0),
+                                Text(
+                                  'Praça Senador José Roberto Leite Penteado, 490',
+                                  style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                        font: GoogleFonts.nunitoSans(
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        color: Color(0xFF2E7D32),
+                                        letterSpacing: 0.0,
                                       ),
-                                      child: Icon(
-                                        Icons.phone,
-                                        color: Colors.white,
-                                        size: 18.0,
-                                      ),
-                                    ),
-                                    SizedBox(width: 12.0),
-                                    Text(
-                                      '(11)99360-9399',
-                                      style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                            font: GoogleFonts.nunitoSans(
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                            color: Color(0xFF2E7D32),
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                  ],
                                 ),
-                                SizedBox(height: 12.0),
-                                Row(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.all(8.0),
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF2196F3),
-                                        borderRadius: BorderRadius.circular(8.0),
+                                SizedBox(height: 8.0),
+                                Text(
+                                  'Lapa - São Paulo, SP',
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        font: GoogleFonts.nunitoSans(),
+                                        color: Color(0xFF4CAF50),
+                                        letterSpacing: 0.0,
                                       ),
-                                      child: Icon(
-                                        Icons.email,
-                                        color: Colors.white,
-                                        size: 18.0,
+                                ),
+                                SizedBox(height: 16.0),
+                                Container(
+                                  padding: EdgeInsets.all(12.0),
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF4CAF50).withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.access_time,
+                                        color: Color(0xFF2E7D32),
+                                        size: 20.0,
                                       ),
-                                    ),
-                                    SizedBox(width: 12.0),
-                                    Expanded(
-                                      child: Text(
-                                        'suporte@dishoftheworld.com',
-                                        style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                              font: GoogleFonts.nunitoSans(
-                                                fontWeight: FontWeight.w600,
+                                      SizedBox(width: 8.0),
+                                      Expanded(
+                                        child: Text(
+                                          'Seg-Sex: 08:00-20:00 | Sáb: 08:00-18:00 | Dom: 08:00-14:00',
+                                          style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                font: GoogleFonts.nunitoSans(
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                                color: Color(0xFF2E7D32),
+                                                letterSpacing: 0.0,
                                               ),
-                                              color: Color(0xFF1565C0),
-                                              letterSpacing: 0.0,
-                                            ),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

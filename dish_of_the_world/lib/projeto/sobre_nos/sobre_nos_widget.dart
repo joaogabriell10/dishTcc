@@ -46,167 +46,179 @@ class _SobreNosWidgetState extends State<SobreNosWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey[50],
+        appBar: AppBar(
+          backgroundColor: Color(0xFF38B6FF),
+          elevation: 0,
+          leading: FlutterFlowIconButton(
+            borderRadius: 8.0,
+            buttonSize: 40.0,
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+              size: 24.0,
+            ),
+            onPressed: () async {
+              context.safePop();
+            },
+          ),
+          title: Text(
+            'Sobre Nós',
+            style: GoogleFonts.nunitoSans(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
+          ),
+          centerTitle: true,
+          actions: [
+            FlutterFlowIconButton(
+              borderRadius: 8.0,
+              buttonSize: 40.0,
+              icon: Icon(
+                Icons.notifications_none,
+                color: Colors.white,
+                size: 24.0,
+              ),
+              onPressed: () async {
+                context.pushNamed(PaginaNotificacoesWidget.routeName);
+              },
+            ),
+          ],
+        ),
         body: Stack(
           children: [
-            Stack(
-              children: [
-                Stack(
-                  children: [
-                    Stack(
+            SingleChildScrollView(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.08),
+                          blurRadius: 10,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Column(
                       children: [
-                        Stack(
+                        ClipRRect(
+                          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                          child: Image.asset(
+                            'assets/images/Dish_of_The_Wor_2.png',
+                            width: double.infinity,
+                            height: 180,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.history,
+                                    color: Color(0xFF38B6FF),
+                                    size: 24,
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    'Nossa História',
+                                    style: GoogleFonts.nunitoSans(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF2D3748),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 16),
+                              Text(
+                                'Nossa equipe tomou a iniciativa de transformar essa incrível ideia em realidade, pois identificamos diversos problemas nas comidas congeladas disponíveis no mercado, como a falta de cor, o sabor artificial e a ausência de criatividade, algo comum, ainda que prático.',
+                                textAlign: TextAlign.justify,
+                                style: GoogleFonts.nunitoSans(
+                                  fontSize: 15,
+                                  color: Colors.grey[700],
+                                  height: 1.5,
+                                ),
+                              ),
+                              SizedBox(height: 12),
+                              Text(
+                                'Dessa forma, criamos a Dish of the World, uma marca que oferece aos nossos clientes pratos únicos, práticos e repletos de personalidade, trazendo comidas típicas de diversas partes do mundo sem que precisem sair do conforto de casa.',
+                                textAlign: TextAlign.justify,
+                                style: GoogleFonts.nunitoSans(
+                                  fontSize: 15,
+                                  color: Colors.grey[700],
+                                  height: 1.5,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.08),
+                          blurRadius: 10,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
                           children: [
-                            Stack(
-                              children: [
-                                Stack(
-                                  children: [
-                                    Align(
-                                      alignment:
-                                          AlignmentDirectional(-0.96, -0.87),
-                                      child: FlutterFlowIconButton(
-                                        borderRadius: 8.0,
-                                        buttonSize: 40.0,
-                                        icon: Icon(
-                                          Icons.arrow_back,
-                                          color: Color(0xFF38B6FF),
-                                          size: 24.0,
-                                        ),
-                                        onPressed: () async {
-                                          context.safePop();
-                                        },
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment:
-                                          AlignmentDirectional(-0.02, -0.68),
-                                      child: Text(
-                                        'Sobre Nós',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .headlineLarge
-                                            .override(
-                                              font: GoogleFonts.nunitoSans(
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineLarge
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineLarge
-                                                        .fontStyle,
-                                              ),
-                                              fontSize: 24.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineLarge
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineLarge
-                                                      .fontStyle,
-                                            ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment:
-                                          AlignmentDirectional(0.12, -0.39),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        child: Image.asset(
-                                          'assets/images/Dish_of_The_Wor_2.png',
-                                          width: 302.5,
-                                          height: 290.2,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment:
-                                          AlignmentDirectional(0.0, 0.54),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 65.0, 20.0, 0.0),
-                                        child: Text(
-                                          'Nossa equipe tomou a iniciativa de transformar essa incrível ideia em realidade, pois identificamos diversos problemas nas comidas congeladas disponíveis no mercado, como a falta de cor, o sabor artificial e a ausência de criatividade, algo comum, ainda que prático. Dessa forma, criamos a Dish of the World, uma marca que oferece aos nossos clientes pratos únicos, práticos e repletos de personalidade, trazendo comidas típicas de diversas partes do mundo sem que precisem sair do conforto de casa.\n\nNosso objetivo não é apenas resolver os problemas citados, mas também proporcionar novidades e experiências fora da rotina para nossos estimados clientes.',
-                                          textAlign: TextAlign.justify,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                font: GoogleFonts.nunitoSans(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
-                                                ),
-                                                fontSize: 13.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w500,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Align(
-                                  alignment: AlignmentDirectional(0.7, -0.87),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 25.0, 0.0),
-                                    child: FlutterFlowIconButton(
-                                      borderRadius: 8.0,
-                                      buttonSize: 40.0,
-                                      icon: Icon(
-                                        Icons.notifications_none,
-                                        color: Color(0xFF38B6FF),
-                                        size: 24.0,
-                                      ),
-                                      onPressed: () async {
-                                        context.pushNamed(
-                                            PaginaNotificacoesWidget.routeName);
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ],
+                            Icon(
+                              Icons.flag,
+                              color: Color(0xFF4CAF50),
+                              size: 24,
                             ),
-                            Align(
-                              alignment: AlignmentDirectional(0.99, -0.89),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 20.0, 0.0),
-                                child: Container(
-                                  width: 60.0,
-                                  height: 60.0,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: Image.asset(
-                                        'assets/images/dish.png',
-                                      ).image,
-                                    ),
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
+                            SizedBox(width: 8),
+                            Text(
+                              'Nosso Objetivo',
+                              style: GoogleFonts.nunitoSans(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF2D3748),
                               ),
                             ),
                           ],
                         ),
+                        SizedBox(height: 16),
+                        Text(
+                          'Nosso objetivo não é apenas resolver os problemas citados, mas também proporcionar novidades e experiências fora da rotina para nossos estimados clientes.',
+                          textAlign: TextAlign.justify,
+                          style: GoogleFonts.nunitoSans(
+                            fontSize: 15,
+                            color: Colors.grey[700],
+                            height: 1.5,
+                          ),
+                        ),
                       ],
                     ),
-                  ],
-                ),
-                Align(
+                  ),
+                  SizedBox(height: 100),
+                ],
+              ),
+            ),
+            Align(
                   alignment: AlignmentDirectional(0.0, 1.0),
                   child: Container(
                     width: double.infinity,
@@ -456,8 +468,6 @@ class _SobreNosWidgetState extends State<SobreNosWidget> {
                     ),
                   ),
                 ),
-              ],
-            ),
           ],
         ),
       ),

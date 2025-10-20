@@ -4,28 +4,28 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'problemas_retirada_model.dart';
-export 'problemas_retirada_model.dart';
+import 'erros_encomenda_model.dart';
+export 'erros_encomenda_model.dart';
 
-class ProblemasRetiradaWidget extends StatefulWidget {
-  const ProblemasRetiradaWidget({super.key});
+class ErrosEncomendaWidget extends StatefulWidget {
+  const ErrosEncomendaWidget({super.key});
 
-  static String routeName = 'ProblemasRetirada';
-  static String routePath = '/problemasRetirada';
+  static String routeName = 'ErrosEncomenda';
+  static String routePath = '/errosEncomenda';
 
   @override
-  State<ProblemasRetiradaWidget> createState() => _ProblemasRetiradaWidgetState();
+  State<ErrosEncomendaWidget> createState() => _ErrosEncomendaWidgetState();
 }
 
-class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
-  late ProblemasRetiradaModel _model;
+class _ErrosEncomendaWidgetState extends State<ErrosEncomendaWidget> {
+  late ErrosEncomendaModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ProblemasRetiradaModel());
+    _model = createModel(context, () => ErrosEncomendaModel());
   }
 
   @override
@@ -61,7 +61,7 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
             },
           ),
           title: Text(
-            'Problemas de Retirada',
+            'Erros com a Encomenda',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   font: GoogleFonts.nunitoSans(
                     fontWeight: FontWeight.w600,
@@ -89,14 +89,14 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                     padding: EdgeInsets.all(28.0),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Color(0xFF38B6FF), Color(0xFF1976D2)],
+                        colors: [Color(0xFFE91E63), Color(0xFFC2185B)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                       boxShadow: [
                         BoxShadow(
-                          color: Color(0x4038B6FF),
+                          color: Color(0x40E91E63),
                           offset: Offset(0, 8),
                           blurRadius: 20.0,
                         ),
@@ -111,14 +111,14 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                             borderRadius: BorderRadius.circular(50.0),
                           ),
                           child: Icon(
-                            Icons.help_center_rounded,
+                            Icons.error_outline,
                             color: Colors.white,
                             size: 48.0,
                           ),
                         ),
                         SizedBox(height: 16.0),
                         Text(
-                          'Problemas de Retirada',
+                          'Erros com a Encomenda',
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context).headlineMedium.override(
                                 font: GoogleFonts.nunitoSans(
@@ -130,7 +130,7 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                         ),
                         SizedBox(height: 8.0),
                         Text(
-                          'Soluções rápidas para os problemas mais comuns',
+                          'Soluções para problemas com seu pedido',
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context).bodyLarge.override(
                                 font: GoogleFonts.nunitoSans(),
@@ -145,34 +145,36 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                   
                   // Problem Cards
                   _buildCard(
-                    Icons.location_on,
-                    'Local de Retirada',
-                    'Praça Senador José Roberto Leite Penteado, 490 - Lapa, SP',
-                    Color(0xFF4CAF50),
+                    Icons.cancel,
+                    'Pedido Cancelado',
+                    'Se seu pedido foi cancelado inesperadamente, verifique seu e-mail para mais informações. Entre em contato conosco se precisar de esclarecimentos.',
+                    Color(0xFFFF5722),
                   ),
                   SizedBox(height: 16.0),
                   
                   _buildCard(
-                    Icons.access_time,
-                    'Horário de Funcionamento',
-                    'Segunda a sexta: 08:00-20:00\nSábado: 08:00-18:00\nDomingo: 08:00-14:00',
-                    Color(0xFF2196F3),
-                  ),
-                  SizedBox(height: 16.0),
-                  
-                  _buildCard(
-                    Icons.badge,
-                    'Documentação Necessária',
-                    'Para a retirada do pedido, é necessário a apresentação de  documento com foto.',
+                    Icons.inventory_2,
+                    'Produto Incorreto',
+                    'Recebeu um produto diferente do pedido? Entre em contato imediatamente para que possamos resolver a situação e fazer a troca.',
                     Color(0xFFFF9800),
                   ),
                   SizedBox(height: 16.0),
                   
                   _buildCard(
-                    Icons.schedule,
-                    'Prazo para Retirada',
-                    'O cliente tem até 5 dias para buscar a encomenda, passado esse tempo, o pedido estará sujeito a cancelamento.',
-                    Color(0xFF9C27B0),
+                    Icons.broken_image,
+                    'Produto Danificado',
+                    'Se o produto chegou danificado ou em más condições, tire fotos e entre em contato conosco para providenciarmos a substituição.',
+                    Color(0xFFF44336),
+                  ),
+                  SizedBox(height: 16.0),
+                  
+
+                  
+                  _buildCard(
+                    Icons.receipt_long,
+                    'Problema na Cobrança',
+                    'Encontrou alguma inconsistência na cobrança? Verifique os detalhes do pedido e entre em contato para esclarecimentos sobre valores.',
+                    Color(0xFF607D8B),
                   ),
                   SizedBox(height: 24.0),
                   

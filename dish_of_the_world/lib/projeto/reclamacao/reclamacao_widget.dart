@@ -1,31 +1,34 @@
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'problemas_retirada_model.dart';
-export 'problemas_retirada_model.dart';
+import 'reclamacao_model.dart';
+export 'reclamacao_model.dart';
 
-class ProblemasRetiradaWidget extends StatefulWidget {
-  const ProblemasRetiradaWidget({super.key});
+class ReclamacaoWidget extends StatefulWidget {
+  const ReclamacaoWidget({super.key});
 
-  static String routeName = 'ProblemasRetirada';
-  static String routePath = '/problemasRetirada';
+  static String routeName = 'Reclamacao';
+  static String routePath = '/reclamacao';
 
   @override
-  State<ProblemasRetiradaWidget> createState() => _ProblemasRetiradaWidgetState();
+  State<ReclamacaoWidget> createState() => _ReclamacaoWidgetState();
 }
 
-class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
-  late ProblemasRetiradaModel _model;
+class _ReclamacaoWidgetState extends State<ReclamacaoWidget> {
+  late ReclamacaoModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ProblemasRetiradaModel());
+    _model = createModel(context, () => ReclamacaoModel());
+    _model.textController ??= TextEditingController();
+    _model.textFieldFocusNode ??= FocusNode();
   }
 
   @override
@@ -61,7 +64,7 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
             },
           ),
           title: Text(
-            'Problemas de Retirada',
+            'Reclamação',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   font: GoogleFonts.nunitoSans(
                     fontWeight: FontWeight.w600,
@@ -89,14 +92,14 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                     padding: EdgeInsets.all(28.0),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Color(0xFF38B6FF), Color(0xFF1976D2)],
+                        colors: [Color(0xFFFF5722), Color(0xFFE64A19)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                       boxShadow: [
                         BoxShadow(
-                          color: Color(0x4038B6FF),
+                          color: Color(0x40FF5722),
                           offset: Offset(0, 8),
                           blurRadius: 20.0,
                         ),
@@ -111,14 +114,14 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                             borderRadius: BorderRadius.circular(50.0),
                           ),
                           child: Icon(
-                            Icons.help_center_rounded,
+                            Icons.report_problem_rounded,
                             color: Colors.white,
                             size: 48.0,
                           ),
                         ),
                         SizedBox(height: 16.0),
                         Text(
-                          'Problemas de Retirada',
+                          'Fazer uma Reclamação',
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context).headlineMedium.override(
                                 font: GoogleFonts.nunitoSans(
@@ -130,7 +133,7 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                         ),
                         SizedBox(height: 8.0),
                         Text(
-                          'Soluções rápidas para os problemas mais comuns',
+                          'Sua opinião é importante para nós',
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context).bodyLarge.override(
                                 font: GoogleFonts.nunitoSans(),
@@ -143,36 +146,154 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                   ),
                   SizedBox(height: 24.0),
                   
-                  // Problem Cards
+                  // Information Cards
                   _buildCard(
-                    Icons.location_on,
-                    'Local de Retirada',
-                    'Praça Senador José Roberto Leite Penteado, 490 - Lapa, SP',
-                    Color(0xFF4CAF50),
-                  ),
-                  SizedBox(height: 16.0),
-                  
-                  _buildCard(
-                    Icons.access_time,
-                    'Horário de Funcionamento',
-                    'Segunda a sexta: 08:00-20:00\nSábado: 08:00-18:00\nDomingo: 08:00-14:00',
+                    Icons.feedback,
+                    'Como Funciona',
+                    'Descreva sua reclamação de forma detalhada. Nossa equipe analisará e entrará em contato em até 24 horas.',
                     Color(0xFF2196F3),
                   ),
                   SizedBox(height: 16.0),
                   
                   _buildCard(
-                    Icons.badge,
-                    'Documentação Necessária',
-                    'Para a retirada do pedido, é necessário a apresentação de  documento com foto.',
-                    Color(0xFFFF9800),
+                    Icons.privacy_tip,
+                    'Privacidade',
+                    'Suas informações são tratadas com total confidencialidade e utilizadas apenas para resolução da reclamação.',
+                    Color(0xFF4CAF50),
                   ),
-                  SizedBox(height: 16.0),
+                  SizedBox(height: 24.0),
                   
-                  _buildCard(
-                    Icons.schedule,
-                    'Prazo para Retirada',
-                    'O cliente tem até 5 dias para buscar a encomenda, passado esse tempo, o pedido estará sujeito a cancelamento.',
-                    Color(0xFF9C27B0),
+                  // Form Section
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0x10000000),
+                          offset: Offset(0, 4),
+                          blurRadius: 12.0,
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(24.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(12.0),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [Color(0xFFFF5722), Color(0xFFE64A19)],
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                child: Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                  size: 24.0,
+                                ),
+                              ),
+                              SizedBox(width: 16.0),
+                              Text(
+                                'Descreva sua reclamação',
+                                style: FlutterFlowTheme.of(context).titleLarge.override(
+                                      font: GoogleFonts.nunitoSans(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      color: Color(0xFF1A1A1A),
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20.0),
+                          TextFormField(
+                            controller: _model.textController,
+                            focusNode: _model.textFieldFocusNode,
+                            autofocus: false,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              hintText: 'Digite sua reclamação aqui...',
+                              hintStyle: FlutterFlowTheme.of(context).bodyLarge.override(
+                                    font: GoogleFonts.nunitoSans(),
+                                    color: Color(0xFF9E9E9E),
+                                    letterSpacing: 0.0,
+                                  ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xFFE0E0E0),
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(16.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xFF38B6FF),
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(16.0),
+                              ),
+                              filled: true,
+                              fillColor: Color(0xFFF5F5F5),
+                              contentPadding: EdgeInsets.all(20.0),
+                            ),
+                            style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                  font: GoogleFonts.nunitoSans(),
+                                  color: Color(0xFF1A1A1A),
+                                  letterSpacing: 0.0,
+                                ),
+                            maxLines: 8,
+                            minLines: 5,
+                          ),
+                          SizedBox(height: 24.0),
+                          Center(
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Reclamação Enviada!'),
+                                      content: Text(
+                                          'Sua reclamação foi registrada com sucesso. Nossa equipe entrará em contato em até 24 horas.'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                                _model.textController?.clear();
+                              },
+                              text: 'Enviar Reclamação',
+                              options: FFButtonOptions(
+                                width: 200.0,
+                                height: 50.0,
+                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                color: Color(0xFF38B6FF),
+                                textStyle: FlutterFlowTheme.of(context).titleMedium.override(
+                                      font: GoogleFonts.nunitoSans(
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      color: Colors.white,
+                                      letterSpacing: 0.0,
+                                    ),
+                                elevation: 3.0,
+                                borderRadius: BorderRadius.circular(25.0),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   SizedBox(height: 24.0),
                   
@@ -232,7 +353,7 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Precisa de Ajuda?',
+                                      'Outros Canais',
                                       style: FlutterFlowTheme.of(context).titleLarge.override(
                                             font: GoogleFonts.nunitoSans(
                                               fontWeight: FontWeight.bold,
@@ -242,7 +363,7 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                                           ),
                                     ),
                                     Text(
-                                      'Estamos aqui para você!',
+                                      'Entre em contato conosco',
                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.nunitoSans(),
                                             color: Color(0xFF8D6E63),
@@ -308,7 +429,7 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                                     SizedBox(width: 12.0),
                                     Expanded(
                                       child: Text(
-                                        'suporte@dishoftheworld.com',
+                                        'reclamacoes@dishoftheworld.com',
                                         style: FlutterFlowTheme.of(context).bodyLarge.override(
                                               font: GoogleFonts.nunitoSans(
                                                 fontWeight: FontWeight.w600,

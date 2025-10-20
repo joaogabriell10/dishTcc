@@ -4,28 +4,28 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'problemas_retirada_model.dart';
-export 'problemas_retirada_model.dart';
+import 'inconsistencia_aplicativo_model.dart';
+export 'inconsistencia_aplicativo_model.dart';
 
-class ProblemasRetiradaWidget extends StatefulWidget {
-  const ProblemasRetiradaWidget({super.key});
+class InconsistenciaAplicativoWidget extends StatefulWidget {
+  const InconsistenciaAplicativoWidget({super.key});
 
-  static String routeName = 'ProblemasRetirada';
-  static String routePath = '/problemasRetirada';
+  static String routeName = 'InconsistenciaAplicativo';
+  static String routePath = '/inconsistenciaAplicativo';
 
   @override
-  State<ProblemasRetiradaWidget> createState() => _ProblemasRetiradaWidgetState();
+  State<InconsistenciaAplicativoWidget> createState() => _InconsistenciaAplicativoWidgetState();
 }
 
-class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
-  late ProblemasRetiradaModel _model;
+class _InconsistenciaAplicativoWidgetState extends State<InconsistenciaAplicativoWidget> {
+  late InconsistenciaAplicativoModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ProblemasRetiradaModel());
+    _model = createModel(context, () => InconsistenciaAplicativoModel());
   }
 
   @override
@@ -61,7 +61,7 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
             },
           ),
           title: Text(
-            'Problemas de Retirada',
+            'Inconsistência no Aplicativo',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   font: GoogleFonts.nunitoSans(
                     fontWeight: FontWeight.w600,
@@ -89,14 +89,14 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                     padding: EdgeInsets.all(28.0),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Color(0xFF38B6FF), Color(0xFF1976D2)],
+                        colors: [Color(0xFFE91E63), Color(0xFFC2185B)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                       boxShadow: [
                         BoxShadow(
-                          color: Color(0x4038B6FF),
+                          color: Color(0x40E91E63),
                           offset: Offset(0, 8),
                           blurRadius: 20.0,
                         ),
@@ -111,14 +111,14 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                             borderRadius: BorderRadius.circular(50.0),
                           ),
                           child: Icon(
-                            Icons.help_center_rounded,
+                            Icons.bug_report_rounded,
                             color: Colors.white,
                             size: 48.0,
                           ),
                         ),
                         SizedBox(height: 16.0),
                         Text(
-                          'Problemas de Retirada',
+                          'Inconsistência no Aplicativo',
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context).headlineMedium.override(
                                 font: GoogleFonts.nunitoSans(
@@ -130,7 +130,7 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                         ),
                         SizedBox(height: 8.0),
                         Text(
-                          'Soluções rápidas para os problemas mais comuns',
+                          'Soluções para problemas técnicos do aplicativo',
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context).bodyLarge.override(
                                 font: GoogleFonts.nunitoSans(),
@@ -145,34 +145,34 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                   
                   // Problem Cards
                   _buildCard(
-                    Icons.location_on,
-                    'Local de Retirada',
-                    'Praça Senador José Roberto Leite Penteado, 490 - Lapa, SP',
-                    Color(0xFF4CAF50),
+                    Icons.refresh,
+                    'Aplicativo Travando',
+                    'Feche completamente o aplicativo e abra novamente. Se o problema persistir, reinicie seu dispositivo.',
+                    Color(0xFFFF5722),
                   ),
                   SizedBox(height: 16.0),
                   
                   _buildCard(
-                    Icons.access_time,
-                    'Horário de Funcionamento',
-                    'Segunda a sexta: 08:00-20:00\nSábado: 08:00-18:00\nDomingo: 08:00-14:00',
-                    Color(0xFF2196F3),
+                    Icons.wifi_off,
+                    'Problemas de Conexão',
+                    'Verifique sua conexão com a internet. Tente alternar entre Wi-Fi e dados móveis.',
+                    Color(0xFF607D8B),
                   ),
                   SizedBox(height: 16.0),
                   
                   _buildCard(
-                    Icons.badge,
-                    'Documentação Necessária',
-                    'Para a retirada do pedido, é necessário a apresentação de  documento com foto.',
-                    Color(0xFFFF9800),
+                    Icons.image_not_supported,
+                    'Imagens não Carregam',
+                    'Limpe o cache do aplicativo nas configurações do seu dispositivo ou reinstale o app.',
+                    Color(0xFF795548),
                   ),
                   SizedBox(height: 16.0),
                   
                   _buildCard(
-                    Icons.schedule,
-                    'Prazo para Retirada',
-                    'O cliente tem até 5 dias para buscar a encomenda, passado esse tempo, o pedido estará sujeito a cancelamento.',
-                    Color(0xFF9C27B0),
+                    Icons.sync_problem,
+                    'Dados não Sincronizam',
+                    'Faça logout e login novamente. Certifique-se de que está conectado à internet.',
+                    Color(0xFF9E9E9E),
                   ),
                   SizedBox(height: 24.0),
                   
@@ -181,18 +181,18 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Color(0xFFFFF3E0), Color(0xFFFFE0B2)],
+                        colors: [Color(0xFFF3E5F5), Color(0xFFE1BEE7)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                       border: Border.all(
-                        color: Color(0xFFFF8A65),
+                        color: Color(0xFFBA68C8),
                         width: 2.0,
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: Color(0x20FF5722),
+                          color: Color(0x20E91E63),
                           offset: Offset(0, 6),
                           blurRadius: 15.0,
                         ),
@@ -209,12 +209,12 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                                 padding: EdgeInsets.all(12.0),
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(
-                                    colors: [Color(0xFFFF5722), Color(0xFFE64A19)],
+                                    colors: [Color(0xFFE91E63), Color(0xFFC2185B)],
                                   ),
                                   borderRadius: BorderRadius.circular(12.0),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Color(0x30FF5722),
+                                      color: Color(0x30E91E63),
                                       offset: Offset(0, 4),
                                       blurRadius: 8.0,
                                     ),
@@ -232,20 +232,20 @@ class _ProblemasRetiradaWidgetState extends State<ProblemasRetiradaWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Precisa de Ajuda?',
+                                      'Suporte Técnico',
                                       style: FlutterFlowTheme.of(context).titleLarge.override(
                                             font: GoogleFonts.nunitoSans(
                                               fontWeight: FontWeight.bold,
                                             ),
-                                            color: Color(0xFFD84315),
+                                            color: Color(0xFF880E4F),
                                             letterSpacing: 0.0,
                                           ),
                                     ),
                                     Text(
-                                      'Estamos aqui para você!',
+                                      'Problemas persistem?',
                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.nunitoSans(),
-                                            color: Color(0xFF8D6E63),
+                                            color: Color(0xFF6A1B9A),
                                             letterSpacing: 0.0,
                                           ),
                                     ),
