@@ -30,7 +30,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
   }
 
   void _carregarDados() async {
-    await _model.carregarEncomendas();
+    await _model.carregarEncomendas(forceReload: true);
     if (mounted) {
       setState(() {});
     }
@@ -216,6 +216,10 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                   ),
                 ],
               ),
+<<<<<<< HEAD
+
+              if (_model.podeSerCancelada(encomenda.status)) ...[
+=======
               if (encomenda.comentario != null && encomenda.comentario!.isNotEmpty) ...[
                 SizedBox(height: 12),
                 Container(
@@ -249,6 +253,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                 ),
               ],
               if (_model.podeSerCancelada(encomenda.status) && encomenda.prontoParaRetirada != true && encomenda.retirada != true) ...[
+>>>>>>> e08bd5e1407eca7314b8fee10d7eb3aad09e041b
                 SizedBox(height: 16),
                 Row(
                   children: [
@@ -300,9 +305,16 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
               ),
             ),
             ElevatedButton(
-              onPressed: () async {
+              onPressed: () {
                 Navigator.of(context).pop();
-                await _cancelarEncomenda(encomenda.id!);
+                _model.cancelarEncomenda(encomenda.id!);
+                setState(() {});
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Pedido cancelado com sucesso!'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
@@ -326,7 +338,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
         ),
       );
 
-      await _model.cancelarEncomenda(encomendaId);
+      _model.cancelarEncomenda(encomendaId);
       
       Navigator.of(context).pop();
       
@@ -337,7 +349,9 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
         ),
       );
       
-      setState(() {});
+      // Recarregar os dados para garantir sincronização
+      _carregarDados();
+      
     } catch (e) {
       Navigator.of(context).pop();
       
@@ -397,8 +411,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                 size: 24.0,
               ),
               onPressed: () async {
-                await _model.carregarEncomendas();
-                setState(() {});
+                _carregarDados();
               },
             ),
           ],
@@ -462,7 +475,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                                       SizedBox(height: 24),
                                       ElevatedButton.icon(
                                         onPressed: () async {
-                                          await _model.carregarEncomendas();
+                                          await _model.carregarEncomendas(forceReload: true);
                                           setState(() {});
                                         },
                                         icon: Icon(Icons.refresh),
@@ -531,7 +544,7 @@ class _MinhasEncomendasWidgetState extends State<MinhasEncomendasWidget> {
                                   )
                                 : RefreshIndicator(
                                     onRefresh: () async {
-                                      await _model.carregarEncomendas();
+                                      await _model.carregarEncomendas(forceReload: true);
                                       setState(() {});
                                     },
                                     child: ListView.builder(

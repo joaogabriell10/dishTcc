@@ -63,12 +63,16 @@ public class PedidoController {
     }
     
     @PostMapping("/atualizar")
-    public String atualizarEncomenda(@RequestBody Map<String, Object> dados) {
+    public Map<String, Object> atualizarEncomenda(@RequestBody Map<String, Object> dados) {
         try {
+            System.out.println("Atualizando encomenda com dados: " + dados);
+            
             Pedido pedido = repository.findById(Long.valueOf(dados.get("id").toString())).orElse(null);
             if (pedido == null) {
-                return "{\"success\": false, \"message\": \"Encomenda não encontrada\"}";
+                return Map.of("success", false, "message", "Encomenda não encontrada");
             }
+            
+            System.out.println("Encomenda encontrada: " + pedido.getId());
             
             if (dados.get("retirada") != null) {
                 pedido.setRetirada(Boolean.valueOf(dados.get("retirada").toString()));
@@ -83,21 +87,32 @@ public class PedidoController {
             }
             
             if (dados.get("status") != null) {
-                pedido.setStatus(Byte.valueOf(dados.get("status").toString()));
+                byte novoStatus = Byte.valueOf(dados.get("status").toString());
+                System.out.println("Atualizando status de " + pedido.getStatus() + " para " + novoStatus);
+                pedido.setStatus(novoStatus);
             }
             
             if (dados.get("dataEncomenda") != null) {
                 pedido.setDataEncomenda(LocalDateTime.parse(dados.get("dataEncomenda").toString()));
             }
             
+<<<<<<< HEAD
+            Pedido pedidoSalvo = repository.save(pedido);
+            System.out.println("Encomenda atualizada com sucesso. Novo status: " + pedidoSalvo.getStatus());
+            
+            return Map.of("success", true, "message", "Encomenda atualizada com sucesso", "data", pedidoSalvo);
+=======
             if (dados.get("prontoParaRetirada") != null) {
                 pedido.setProntoParaRetirada(Boolean.valueOf(dados.get("prontoParaRetirada").toString()));
             }
             
             repository.save(pedido);
             return "{\"success\": true, \"message\": \"Encomenda atualizada com sucesso\"}";
+>>>>>>> e08bd5e1407eca7314b8fee10d7eb3aad09e041b
         } catch (Exception e) {
-            return "{\"success\": false, \"message\": \"Erro ao atualizar encomenda: " + e.getMessage() + "\"}";
+            System.err.println("Erro ao atualizar encomenda: " + e.getMessage());
+            e.printStackTrace();
+            return Map.of("success", false, "message", "Erro ao atualizar encomenda: " + e.getMessage());
         }
     }
     

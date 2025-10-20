@@ -8,6 +8,7 @@ import '/services/encomenda_service.dart';
 import '/services/user_service.dart';
 import 'minhas_encomendas_widget.dart' show MinhasEncomendasWidget;
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MinhasEncomendasModel extends FlutterFlowModel<MinhasEncomendasWidget> {
   List<Encomenda> encomendas = [];
@@ -17,10 +18,12 @@ class MinhasEncomendasModel extends FlutterFlowModel<MinhasEncomendasWidget> {
   String filtroStatus = 'Todas';
   String searchQuery = '';
   TextEditingController searchController = TextEditingController();
+  
+  Set<int> _encomendasCanceladas = {};
 
   @override
   void initState(BuildContext context) {
-    carregarEncomendas();
+    _inicializar();
     
     // Escutar quando um pedido for finalizado para recarregar as encomendas
     CarrinhoService().setOnPedidoFinalizado(() {
@@ -28,11 +31,37 @@ class MinhasEncomendasModel extends FlutterFlowModel<MinhasEncomendasWidget> {
       carregarEncomendas();
     });
   }
+  
+  Future<void> _inicializar() async {
+    await _carregarCancelamentos();
+    await carregarEncomendas();
+  }
+  
+  Future<void> _carregarCancelamentos() async {
+    final prefs = await SharedPreferences.getInstance();
+    final cancelados = prefs.getStringList('encomendas_canceladas') ?? [];
+    _encomendasCanceladas = cancelados.map((e) => int.parse(e)).toSet();
+  }
+  
+  Future<void> _salvarCancelamentos() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('encomendas_canceladas', 
+        _encomendasCanceladas.map((e) => e.toString()).toList());
+  }
 
-  Future<void> carregarEncomendas() async {
+  Future<void> carregarEncomendas({bool forceReload = false}) async {
+    if (_encomendasCanceladas.isEmpty) {
+      await _carregarCancelamentos();
+    }
     try {
       isLoading = true;
       errorMessage = null;
+      
+      // Limpar dados anteriores se for um reload forçado
+      if (forceReload) {
+        encomendas.clear();
+        encomendasFiltradas.clear();
+      }
       
       final userId = await UserService.getUserId();
       print('UserID para carregar encomendas: $userId');
@@ -55,6 +84,14 @@ class MinhasEncomendasModel extends FlutterFlowModel<MinhasEncomendasWidget> {
         encomendas = [];
       }
       
+<<<<<<< HEAD
+      // TESTE: Sempre adicionar algumas encomendas de exemplo
+      if (!forceReload) {
+        encomendas.addAll(_criarEncomendasExemplo());
+      }
+      
+=======
+>>>>>>> e08bd5e1407eca7314b8fee10d7eb3aad09e041b
       aplicarFiltros();
     } catch (e) {
       print('Erro ao carregar encomendas: $e');
@@ -63,14 +100,113 @@ class MinhasEncomendasModel extends FlutterFlowModel<MinhasEncomendasWidget> {
       } else {
         errorMessage = 'Não foi possível carregar seus pedidos. Tente novamente em alguns instantes.';
       }
+<<<<<<< HEAD
+      // Para debug, vamos usar dados de exemplo mesmo com erro
+      if (encomendas.isEmpty) {
+        encomendas = _criarEncomendasExemplo();
+      }
+=======
       encomendas = [];
+>>>>>>> e08bd5e1407eca7314b8fee10d7eb3aad09e041b
       aplicarFiltros();
     } finally {
       isLoading = false;
     }
   }
 
+<<<<<<< HEAD
+  List<Encomenda> _criarEncomendasExemplo() {
+    return [
+      Encomenda(
+        id: 1,
+        dataEncomenda: '15/12/2024',
+        comentario: 'Sem cebola, por favor',
+        usuarioId: 1,
+        quantidade: 2,
+        preco: 46.00,
+        produtoId: 1,
+        status: _encomendasCanceladas.contains(1) ? 5 : 1,
+        retirada: false,
+        produto: Produto(
+          id: 1, 
+          nome: 'Feijoada', 
+          preco: 25.90,
+          descricao: 'Prato tradicional brasileiro com feijão preto e carnes',
+        ),
+      ),
+      Encomenda(
+        id: 2,
+        dataEncomenda: '14/12/2024',
+        comentario: null,
+        usuarioId: 1,
+        quantidade: 1,
+        preco: 24.50,
+        produtoId: 2,
+        status: _encomendasCanceladas.contains(2) ? 5 : 1,
+        retirada: false,
+        produto: Produto(
+          id: 2, 
+          nome: 'Paella', 
+          preco: 32.50,
+          descricao: 'Prato tradicional espanhol com arroz e frutos do mar',
+        ),
+      ),
+      Encomenda(
+        id: 3,
+        dataEncomenda: '13/12/2024',
+        comentario: 'Extra wasabi',
+        usuarioId: 1,
+        quantidade: 3,
+        preco: 79.50,
+        produtoId: 103,
+        status: _encomendasCanceladas.contains(3) ? 5 : 1,
+        retirada: true,
+        produto: Produto(
+          id: 3, 
+          nome: 'Sushi', 
+          preco: 28.90,
+          descricao: 'Prato tradicional japonês com peixe cru e arroz',
+        ),
+      ),
+      Encomenda(
+        id: 4,
+        dataEncomenda: '12/12/2024',
+        comentario: null,
+        usuarioId: 1,
+        quantidade: 1,
+        preco: 26.50,
+        produtoId: 104,
+        status: _encomendasCanceladas.contains(4) ? 5 : 1,
+        retirada: false,
+        produto: Produto(
+          id: 4, 
+          nome: 'Tacos', 
+          preco: 22.00,
+          descricao: 'Prato tradicional mexicano com tortilla e recheios variados',
+        ),
+      ),
+      Encomenda(
+        id: 5,
+        dataEncomenda: '10/12/2024',
+        comentario: 'Cancelado pelo cliente',
+        usuarioId: 1,
+        quantidade: 2,
+        preco: 47.00,
+        produtoId: 105,
+        status: 5,
+        retirada: false,
+        produto: Produto(
+          id: 5, 
+          nome: 'Ratatouille', 
+          preco: 24.90,
+          descricao: 'Prato tradicional francês com legumes refogados',
+        ),
+      ),
+    ];
+  }
+=======
 
+>>>>>>> e08bd5e1407eca7314b8fee10d7eb3aad09e041b
 
   void aplicarFiltros() {
     encomendasFiltradas = encomendas.where((encomenda) {
@@ -103,18 +239,14 @@ class MinhasEncomendasModel extends FlutterFlowModel<MinhasEncomendasWidget> {
     aplicarFiltros();
   }
 
-  Future<void> cancelarEncomenda(int encomendaId) async {
-    try {
-      print('Cancelando encomenda ID: $encomendaId');
-      
-      // Encontrar a encomenda
-      final encomenda = encomendas.firstWhere((e) => e.id == encomendaId);
-      print('Encomenda encontrada: ${encomenda.id}');
-      
-      // Atualizar diretamente na lista local para teste
-      final index = encomendas.indexWhere((e) => e.id == encomendaId);
-      if (index >= 0) {
-        encomendas[index] = Encomenda(
+  void cancelarEncomenda(int encomendaId) {
+    _encomendasCanceladas.add(encomendaId);
+    _salvarCancelamentos();
+    
+    for (int i = 0; i < encomendas.length; i++) {
+      if (encomendas[i].id == encomendaId) {
+        final encomenda = encomendas[i];
+        encomendas[i] = Encomenda(
           id: encomenda.id,
           dataEncomenda: encomenda.dataEncomenda,
           comentario: encomenda.comentario,
@@ -122,32 +254,16 @@ class MinhasEncomendasModel extends FlutterFlowModel<MinhasEncomendasWidget> {
           quantidade: encomenda.quantidade,
           preco: encomenda.preco,
           produtoId: encomenda.produtoId,
-          status: 2, // Status cancelado
+          status: 5,
           retirada: encomenda.retirada,
           prontoParaRetirada: encomenda.prontoParaRetirada,
           usuario: encomenda.usuario,
           produto: encomenda.produto,
         );
-        aplicarFiltros();
-        print('Encomenda cancelada localmente');
+        break;
       }
-      
-      // Tentar atualizar no backend
-      try {
-        final dadosAtualizacao = {
-          'id': encomendaId,
-          'status': 2
-        };
-        final response = await ApiService.post('encomendas/atualizar', dadosAtualizacao);
-        print('Resposta do backend: $response');
-      } catch (e) {
-        print('Erro ao atualizar no backend: $e');
-      }
-      
-    } catch (e) {
-      print('Erro ao cancelar encomenda: $e');
-      throw Exception('Erro ao cancelar encomenda: $e');
     }
+    aplicarFiltros();
   }
 
   String getStatusText(int? status, {bool? prontoParaRetirada, bool? retirada}) {
@@ -161,6 +277,15 @@ class MinhasEncomendasModel extends FlutterFlowModel<MinhasEncomendasWidget> {
       case 1:
         return 'Confirmada';
       case 2:
+<<<<<<< HEAD
+        return 'Em preparo';
+      case 3:
+        return 'Pronta para retirada';
+      case 4:
+        return 'Retirada / Entregue';
+      case 5:
+=======
+>>>>>>> e08bd5e1407eca7314b8fee10d7eb3aad09e041b
         return 'Cancelada';
       default:
         return 'Desconhecido';
@@ -178,6 +303,15 @@ class MinhasEncomendasModel extends FlutterFlowModel<MinhasEncomendasWidget> {
       case 1:
         return Color(0xFF38B6FF);
       case 2:
+<<<<<<< HEAD
+        return Color(0xFFFF9800);
+      case 3:
+        return Color(0xFF4CAF50);
+      case 4:
+        return Color(0xFF2196F3);
+      case 5:
+=======
+>>>>>>> e08bd5e1407eca7314b8fee10d7eb3aad09e041b
         return Color(0xFFD0132E);
       default:
         return Color(0xFF757575);
@@ -208,9 +342,14 @@ class MinhasEncomendasModel extends FlutterFlowModel<MinhasEncomendasWidget> {
   List<String> get statusOptions => [
     'Todas',
     'Confirmada',
+<<<<<<< HEAD
+    'Em preparo',
+=======
     'Cancelada',
+>>>>>>> e08bd5e1407eca7314b8fee10d7eb3aad09e041b
     'Pronta para retirada',
-    'Retirada / Entregue'
+    'Retirada / Entregue',
+    'Cancelada'
   ];
 
   @override

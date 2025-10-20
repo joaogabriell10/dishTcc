@@ -33,18 +33,31 @@ class ApiService {
   // POST request
   static Future<Map<String, dynamic>> post(String endpoint, Map<String, dynamic> data) async {
     try {
+      print('POST $baseUrl/$endpoint com dados: $data');
+      
       final response = await http.post(
         Uri.parse('$baseUrl/$endpoint'),
         headers: headers,
         body: json.encode(data),
       );
       
+      print('Resposta HTTP ${response.statusCode}: ${response.body}');
+      
       if (response.statusCode == 200 || response.statusCode == 201) {
-        return {'success': true, 'data': json.decode(response.body)};
+        final responseData = json.decode(response.body);
+        
+        // Se a resposta já tem success/message, retornar como está
+        if (responseData is Map && responseData.containsKey('success')) {
+          return Map<String, dynamic>.from(responseData);
+        }
+        
+        // Caso contrário, encapsular
+        return {'success': true, 'data': responseData};
       } else {
         return {'success': false, 'error': 'Erro ${response.statusCode}: ${response.body}'};
       }
     } catch (e) {
+      print('Erro na requisição POST: $e');
       return {'success': false, 'error': e.toString()};
     }
   }
